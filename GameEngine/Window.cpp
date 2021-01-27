@@ -93,7 +93,7 @@ void Window::SetPreAttributes()
     //set the swap interval to be equal and sychronized with the vertical retrace of your screen
     SDL_GL_SetSwapInterval(1);
 
-    //f
+    //test 333
      glewExperimental = GL_TRUE;
 }
 
