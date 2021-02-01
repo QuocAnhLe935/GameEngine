@@ -27,11 +27,12 @@ bool Window::OnCreate(std::string name_, int width_, int height_)
     //flag want to set tell SDL window expecting opengl rendering to happend
     window = SDL_CreateWindow(name_.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
 
+    //No window? shoot an error
     if (!window) {
         std::cout << "Failed to create window" << std::endl;
         return false;
     }
-
+    //create GL context for use an Opengl window
     context = SDL_GL_CreateContext(window);
     SetPosAttributes();
   
@@ -85,7 +86,7 @@ void Window::SetPreAttributes()
 
     //setting glversion 4.3
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
 
     //enable doublebuffer
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
