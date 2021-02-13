@@ -2,7 +2,8 @@
 
 std::unique_ptr<MEngine> MEngine::engineInstance = nullptr;
 
-MEngine::MEngine() :window(nullptr), isRunning(nullptr)
+MEngine::MEngine() :window(nullptr), isRunning(nullptr), fps(59), gameMainFrame(nullptr),
+currentSceneNum(0)
 {
 }
 
@@ -22,49 +23,105 @@ MEngine* MEngine::GetInstance()
 
 bool MEngine::OnCreate(std::string name_, int width_, int height_)
 {
+	Debug::Oncreate();
 	//make sure to call window pointer
 	window = new Window();
 	//Fail to create window send error-> engine is NOT running?
 	if (!window->OnCreate(name_, width_, height_)) {
-		std::cout << "Window failed to initialize" << std::endl;
+		
+		Debug::FatalError("Windowfailed", "MEngine.cpp",__LINE__);
+		
 		OnDestroy();
 		return isRunning = false;
 	}
+
+
+	if (gameMainFrame) {
+		if (!gameMainFrame->OnCreate()) {
+			
+			Debug::FatalError("GAME FAILED TO INITIALIZE", "MEngine.cpp", __LINE__);
+			OnDestroy();
+			return isRunning = false;
+		}
+	}
+
+
+
+	Debug::Info("worked", __FILE__, __LINE__);
+
+	timer.Start();
 	return isRunning = true;
 }
 
 void MEngine::Run()
 {
 	while (isRunning) {
+
 		//run 60 fps
-		Update(0.016f);
+		timer.UpdateFrameTicks();
+		Update(timer.GetDeltaTime());
 		Render();
+		//set sleep time to sleep
+		SDL_Delay(timer.GetSleepTime(fps));
 	}
-	if (!isRunning) {
+	//if (!isRunning) {
 		OnDestroy();
-	}
+	//}
 }
 
-bool MEngine::GetIsRunning()
+void MEngine::Exit()
+{
+	isRunning = false;
+}
+
+
+
+int MEngine::GetCurrentScene() const
+{
+	return currentSceneNum;
+}
+
+bool MEngine::GetIsRunning() const
 {
 	return isRunning;
 }
 
+void MEngine::SetCurrentScene(int sceneNum_)
+{
+	currentSceneNum = sceneNum_;
+}
+
+void MEngine::SetGameMainFrame(GameMainFrame* gamemainframe_)
+{
+	gameMainFrame = gamemainframe_;
+}
+
 void MEngine::Update(const float deltaTime_)
 {
+	if (gameMainFrame) {
+		gameMainFrame->Update(deltaTime_);
+		std::cout << deltaTime_<< std::endl;
+		
+	}
 }
 
 void MEngine::Render()
 {
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(2.0f, 5.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	//call game render
+	if (gameMainFrame) {
+		gameMainFrame->Render();
+	}
 	SDL_GL_SwapWindow(window->GetWindow());
 }
 
 void MEngine::OnDestroy()
 {
-	delete window;
+	delete window, gameMainFrame;
+	window, gameMainFrame = nullptr;
+	
 	SDL_Quit();
 	exit(0);
 }

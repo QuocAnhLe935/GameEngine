@@ -34,8 +34,10 @@ bool Window::OnCreate(std::string name_, int width_, int height_)
     }
     //create GL context for use an Opengl window
     context = SDL_GL_CreateContext(window);
+    
     SetPosAttributes();
-  
+
+    //for OPengl loading textures, rendering, etc...
     GLenum err = glewInit();
     if (err != GLEW_OK) {
         std::cout << "Failed to initialize GLEW" << std::endl;
@@ -84,9 +86,9 @@ void Window::SetPreAttributes()
    // is the process of taking older code and marking it as no longer being useful within the codebase)
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-    //setting glversion 4.3
+    //setting glversion 4.6 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 
     //enable doublebuffer
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -96,6 +98,8 @@ void Window::SetPreAttributes()
 
     //test 333
      glewExperimental = GL_TRUE;
+
+     
 }
 
 void Window::SetPosAttributes()

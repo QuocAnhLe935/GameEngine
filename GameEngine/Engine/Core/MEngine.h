@@ -2,6 +2,10 @@
 #define MENGINE_H
 
 #include "Window.h"
+#include "Timer.h"
+#include "Debug.h"
+#include "GameMainFrame.h"
+#include "../../Scene.h"
 #include <memory>
 class MEngine
 {
@@ -17,10 +21,14 @@ public:
 	static MEngine* GetInstance();
 	//Call on create function on Window
 	bool OnCreate(std::string name_, int width_, int height_);
-	//
 	void Run();
-	//
-	bool GetIsRunning();
+	void Exit();
+
+	bool GetIsRunning() const;
+	int GetCurrentScene() const;
+
+	void SetCurrentScene(int sceneNum_);
+	void SetGameMainFrame(GameMainFrame* gamemainframe_);
 
 private:
 	MEngine();
@@ -43,6 +51,12 @@ private:
 	Window* window;
 	//check T/F if engine is running
 	bool isRunning;
+	Timer timer;
+	unsigned int fps;
+
+
+	GameMainFrame* gameMainFrame;
+	int currentSceneNum;
 };
 
 #endif // !MENGINE
