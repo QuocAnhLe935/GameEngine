@@ -1,1 +1,2 @@
+[INFO]: START SECEN 0in:StartScene.cppon line: 14
 [INFO]: workedin:D:\School\GameEngine4\GameEngine\GameEngine\Engine\Core\MEngine.cppon line: 50

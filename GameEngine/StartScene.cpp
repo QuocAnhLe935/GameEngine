@@ -10,7 +10,8 @@ StartScene::~StartScene()
 
 bool StartScene::OnCreate()
 {
-	printf("Start scene");
+	printf("HI from startscene");
+	Debug::Info("START SECEN 0", "StartScene.cpp", __LINE__);
 	return true;
 }
 

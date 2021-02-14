@@ -16,6 +16,12 @@
     <Filter Include="Game\Scene">
       <UniqueIdentifier>{a669a67f-e6a5-4f8f-b17a-e6ca89a35402}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Rendering">
+      <UniqueIdentifier>{48b298ec-2f81-4b3e-8cf7-ac460e2b793b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Rendering\3D">
+      <UniqueIdentifier>{dab913f5-e7cc-49a3-b1a7-8b7e922fc584}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Core\Window.cpp">
@@ -39,6 +45,15 @@
     </ClCompile>
     <ClCompile Include="GameScene.cpp">
       <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Engine\Rendering\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Engine\Rendering\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Engine\Rendering\3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +83,15 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Engine\Rendering\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Engine\Rendering\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Engine\Rendering\3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

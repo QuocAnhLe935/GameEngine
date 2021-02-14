@@ -19,7 +19,8 @@ bool Game0::OnCreate()
 		//set up start scene
 		return currentScene->OnCreate();
 	}
-	printf("ENGINE SCENE IS NOT INITIALIZED TO 0");
+	
+	Debug::FatalError("ENGINE SCENE IS NOT INITIALIZED TO 0", "GAME0.CPP", __LINE__);
 
 	return false;
 }
@@ -42,7 +43,7 @@ void Game0::BuildScene()
 {
 	delete currentScene;
 	currentScene = nullptr;
-
+	printf("Hi from Game0 build");
 	switch (MEngine::GetInstance()->GetCurrentScene())
 	{
 	case 1:

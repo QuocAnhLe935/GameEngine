@@ -7,6 +7,8 @@
 #include "GameMainFrame.h"
 #include "../../Scene.h"
 #include <memory>
+
+#include "../../GameObject.h"
 class MEngine
 {
 public:

@@ -100,27 +100,32 @@ void MEngine::Update(const float deltaTime_)
 {
 	if (gameMainFrame) {
 		gameMainFrame->Update(deltaTime_);
-		std::cout << deltaTime_<< std::endl;
+		//std::cout << deltaTime_<< std::endl;
 		
 	}
 }
 
 void MEngine::Render()
 {
-	glClearColor(2.0f, 5.0f, 0.0f, 1.0f);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//call game render
 	if (gameMainFrame) {
 		gameMainFrame->Render();
+		
 	}
 	SDL_GL_SwapWindow(window->GetWindow());
 }
 
 void MEngine::OnDestroy()
 {
-	delete window, gameMainFrame;
-	window, gameMainFrame = nullptr;
+	
+	delete window;
+	window = nullptr;
+
+	delete gameMainFrame;
+	gameMainFrame = nullptr;
 	
 	SDL_Quit();
 	exit(0);
