@@ -39,6 +39,8 @@ void Game0::Render()
 	currentScene->Render();
 }
 
+
+//problem ?!
 void Game0::BuildScene()
 {
 	delete currentScene;
