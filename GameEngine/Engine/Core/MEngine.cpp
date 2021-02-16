@@ -3,7 +3,7 @@
 std::unique_ptr<MEngine> MEngine::engineInstance = nullptr;
 
 MEngine::MEngine() :window(nullptr), isRunning(nullptr), fps(59), gameMainFrame(nullptr),
-currentSceneNum(0)
+currentSceneNum(0), timer(nullptr)
 {
 }
 
@@ -48,8 +48,8 @@ bool MEngine::OnCreate(std::string name_, int width_, int height_)
 
 
 	Debug::Info("worked", __FILE__, __LINE__);
-
-	timer.Start();
+	timer = new Timer();
+	timer->Start();
 	return isRunning = true;
 }
 
@@ -58,11 +58,11 @@ void MEngine::Run()
 	while (isRunning) {
 
 		//run 60 fps
-		timer.UpdateFrameTicks();
-		Update(timer.GetDeltaTime());
+		timer->UpdateFrameTicks();
+		Update(timer->GetDeltaTime());
 		Render();
 		//set sleep time to sleep
-		SDL_Delay(timer.GetSleepTime(fps));
+		SDL_Delay(timer->GetSleepTime(fps));
 	}
 	//if (!isRunning) {
 		OnDestroy();
@@ -78,6 +78,7 @@ void MEngine::Exit()
 
 int MEngine::GetCurrentScene() const
 {
+	
 	return currentSceneNum;
 }
 
@@ -120,6 +121,8 @@ void MEngine::Render()
 
 void MEngine::OnDestroy()
 {
+	delete timer;
+	timer = nullptr;
 	
 	delete window;
 	window = nullptr;

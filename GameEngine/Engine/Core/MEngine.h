@@ -53,7 +53,7 @@ private:
 	Window* window;
 	//check T/F if engine is running
 	bool isRunning;
-	Timer timer;
+	Timer* timer;
 	unsigned int fps;
 
 

@@ -15,11 +15,15 @@ bool Game0::OnCreate()
 {
 	if (MEngine::GetInstance()->GetCurrentScene() == 0) {
 		currentScene = new StartScene();
-		currentSceneNum = 0;
+		currentSceneNum =0;
+		
 		//set up start scene
 		return currentScene->OnCreate();
 	}
+
 	
+
+
 	Debug::FatalError("ENGINE SCENE IS NOT INITIALIZED TO 0", "GAME0.CPP", __LINE__);
 
 	return false;
@@ -31,7 +35,9 @@ void Game0::Update(const float deltaTime_)
 	if (currentSceneNum != MEngine::GetInstance()->GetCurrentScene()) {
 		BuildScene();
 	}
+	
 	currentScene->Update(deltaTime_);
+	
 }
 
 void Game0::Render()
@@ -45,7 +51,7 @@ void Game0::BuildScene()
 {
 	delete currentScene;
 	currentScene = nullptr;
-	printf("Hi from Game0 build");
+	
 	switch (MEngine::GetInstance()->GetCurrentScene())
 	{
 	case 1:
@@ -53,6 +59,7 @@ void Game0::BuildScene()
 		break;
 	default: //case 0
 		currentScene = new StartScene();
+		break;
 	}
 	currentSceneNum = MEngine::GetInstance()->GetCurrentScene();
 	if (!currentScene->OnCreate()) {

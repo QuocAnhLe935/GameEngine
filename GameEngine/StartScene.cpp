@@ -10,8 +10,16 @@ StartScene::~StartScene()
 
 bool StartScene::OnCreate()
 {
-	printf("HI from startscene");
-	Debug::Info("START SECEN 0", "StartScene.cpp", __LINE__);
+	
+	while(MEngine::GetInstance()->GetCurrentScene()==0){ 
+	
+		
+		MEngine::GetInstance()->SetCurrentScene(1);
+		Debug::Info("SUCCESSFUL ", "StartScene.cpp", __LINE__);
+
+	}
+
+	
 	return true;
 }
 
