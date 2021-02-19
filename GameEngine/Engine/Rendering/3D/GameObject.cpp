@@ -20,7 +20,7 @@ void GameObject::Render()
 {
 	//if there is model then render 
 	if (model) {
-		printf("MODEL");
+		
 		model->Render();
 	}
 }

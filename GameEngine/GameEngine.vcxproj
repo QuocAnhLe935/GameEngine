@@ -145,31 +145,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\Core\Debug.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Debug\Debug.cpp" />
+    <ClCompile Include="Engine\Rendering\3D\GameObject.cpp" />
+    <ClCompile Include="Game\Scene\GameScene.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Engine\Core\Window.cpp" />
     <ClCompile Include="Engine\Core\MEngine.cpp" />
     <ClCompile Include="Engine\Core\Timer.cpp" />
     <ClCompile Include="Game\Game0.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="StartScene.cpp" />
+    <ClCompile Include="Engine\Rendering\3D\Mesh.cpp" />
+    <ClCompile Include="Engine\Rendering\3D\Model.cpp" />
+    <ClCompile Include="Game\Scene\StartScene.cpp" />
+    <ClCompile Include="Engine\Graphics\ShaderHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\Core\Debug.h" />
+    <ClInclude Include="Debug\Debug.h" />
     <ClInclude Include="Engine\Core\Window.h" />
     <ClInclude Include="Engine\Core\MEngine.h" />
     <ClInclude Include="Engine\Core\Timer.h" />
     <ClInclude Include="Engine\Core\GameMainFrame.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Engine\Rendering\3D\GameObject.h" />
+    <ClInclude Include="Game\Scene\GameScene.h" />
     <ClInclude Include="Game\Game0.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="StartScene.h" />
+    <ClInclude Include="Engine\Rendering\3D\Mesh.h" />
+    <ClInclude Include="Engine\Rendering\3D\Model.h" />
+    <ClInclude Include="Game\Scene\Scene.h" />
+    <ClInclude Include="Game\Scene\StartScene.h" />
+    <ClInclude Include="Engine\Graphics\ShaderHandler.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Engine\Shaders\ColorFragmentShader.glsl" />
+    <None Include="Engine\Shaders\ColorVertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

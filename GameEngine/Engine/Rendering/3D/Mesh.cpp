@@ -83,7 +83,7 @@ void Mesh::GenerateBuffer()
 	//Color
 	glEnableVertexAttribArray(3);
 	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-		(GLvoid*)offsetof(Vertex, colour));
+		(GLvoid*)offsetof(Vertex, color));
 
 
 	//close the Locker nothing can screw around VAO VBO datas

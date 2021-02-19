@@ -33,28 +33,29 @@
     <ClCompile Include="Engine\Core\MEngine.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Core\Debug.cpp">
-      <Filter>Debug</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Game\Game0.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="StartScene.cpp">
+    <ClCompile Include="Game\Scene\StartScene.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="GameScene.cpp">
+    <ClCompile Include="Game\Scene\GameScene.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="Engine\Rendering\3D\Model.cpp">
       <Filter>Engine\Rendering\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
+    <ClCompile Include="Engine\Rendering\3D\Mesh.cpp">
       <Filter>Engine\Rendering\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
+    <ClCompile Include="Engine\Rendering\3D\GameObject.cpp">
       <Filter>Engine\Rendering\3D</Filter>
     </ClCompile>
+    <ClCompile Include="Debug\Debug.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Graphics\ShaderHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.h">
@@ -69,29 +70,34 @@
     <ClInclude Include="Engine\Core\GameMainFrame.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Core\Debug.h">
-      <Filter>Debug</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Game0.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="StartScene.h">
+    <ClInclude Include="Game\Scene\StartScene.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="GameScene.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
+    <ClInclude Include="Game\Scene\Scene.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="Game\Scene\GameScene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Rendering\3D\Model.h">
       <Filter>Engine\Rendering\3D</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
+    <ClInclude Include="Engine\Rendering\3D\Mesh.h">
       <Filter>Engine\Rendering\3D</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
+    <ClInclude Include="Engine\Rendering\3D\GameObject.h">
       <Filter>Engine\Rendering\3D</Filter>
     </ClInclude>
+    <ClInclude Include="Debug\Debug.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Graphics\ShaderHandler.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Engine\Shaders\ColorVertexShader.glsl" />
+    <None Include="Engine\Shaders\ColorFragmentShader.glsl" />
   </ItemGroup>
 </Project>

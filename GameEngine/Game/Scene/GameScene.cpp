@@ -22,21 +22,33 @@ bool GameScene::OnCreate()
 	//reserve(doesn't have to move in the actual vector in the memory)
 	vertexList.reserve(6);
 	v.position = glm::vec3(-0.5f, 0.5f, 0.0f);
-	vertexList.push_back(v);
-	v.position = glm::vec3(0.5f, 0.5f, 0.0f);
-	vertexList.push_back(v);
-	v.position = glm::vec3(-0.5f, -0.5f, 0.0f);
+	v.color = glm::vec3(1.0f, 0.0f, 0.0f);
 	vertexList.push_back(v);
 
 	v.position = glm::vec3(0.5f, 0.5f, 0.0f);
+	v.color = glm::vec3(0.0f, 1.0f, 0.0f);
 	vertexList.push_back(v);
-	v.position = glm::vec3(0.5f, -0.5f, 0.0f);
-	vertexList.push_back(v);
+	
 	v.position = glm::vec3(-0.5f, -0.5f, 0.0f);
+	v.color = glm::vec3(0.0f, 0.0f, 1.0f);
+	vertexList.push_back(v);
+
+
+
+	v.position = glm::vec3(0.5f, 0.5f, 0.0f);
+	v.color = glm::vec3(0.0f, 1.0f, 0.0f);
+	vertexList.push_back(v);
+
+	v.position = glm::vec3(0.5f, -0.5f, 0.0f);
+	v.color = glm::vec3(1.0f, 0.0f, 0.0f);
+	vertexList.push_back(v);
+
+	v.position = glm::vec3(-0.5f, -0.5f, 0.0f);
+	v.color = glm::vec3(0.0f, 0.0f, 1.0f);
 	vertexList.push_back(v);
 
 	
-	Model* model = new Model();
+	Model* model = new Model(ShaderHandler::GetInstance()->GetShader("colorShader"));
 	//create new mesh pass in vertexlist
 	//get 3 meshes verticle to Mesh contructor 
 	//then pass entire mesh object to model

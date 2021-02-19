@@ -2,8 +2,13 @@
 #define GAME0_H
 
 #include "../Engine/Core/MEngine.h"
-#include "../StartScene.h"
-#include "../GameScene.h"
+
+#include "Scene/StartScene.h"
+#include "Scene/GameScene.h"
+
+
+
+
 class Game0: public GameMainFrame
 {
 public:

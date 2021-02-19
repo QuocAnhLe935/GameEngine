@@ -11,7 +11,7 @@ StartScene::~StartScene()
 bool StartScene::OnCreate()
 {
 	
-	while(MEngine::GetInstance()->GetCurrentScene()==0){ 
+	if(MEngine::GetInstance()->GetCurrentScene()==0){ 
 	
 		
 		MEngine::GetInstance()->SetCurrentScene(1);

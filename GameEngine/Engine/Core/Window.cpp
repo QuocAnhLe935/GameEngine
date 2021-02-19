@@ -1,5 +1,5 @@
 #include "Window.h"
-
+#include "../../Debug/Debug.h"
 Window::Window() : window(nullptr), context(nullptr)
 {
     
@@ -14,7 +14,7 @@ bool Window::OnCreate(std::string name_, int width_, int height_)
 {
     //anything less 0 means it didn't work
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        std::cout << "Failed to initialize SDL" << std::endl;
+        Debug::FatalError("FAILED TO INITIALIZED SDL", "WINDOW.CPP", __LINE__);
         return false;
     }
     
@@ -30,6 +30,7 @@ bool Window::OnCreate(std::string name_, int width_, int height_)
     //No window? shoot an error
     if (!window) {
         std::cout << "Failed to create window" << std::endl;
+        
         return false;
     }
     //create GL context for use an Opengl window

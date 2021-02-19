@@ -1,7 +1,8 @@
 #ifndef STARTSCENE_H
 #define STARTSCENE_H
 
-#include"../GameEngine/Engine/Core/MEngine.h"
+//#include"../GameEngine/Engine/Core/MEngine.h"
+#include "../../Engine/Core/MEngine.h"
 
 
 class StartScene : public Scene

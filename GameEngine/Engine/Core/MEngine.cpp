@@ -1,5 +1,5 @@
 #include "MEngine.h"
-
+//redeclare static varible
 std::unique_ptr<MEngine> MEngine::engineInstance = nullptr;
 
 MEngine::MEngine() :window(nullptr), isRunning(nullptr), fps(59), gameMainFrame(nullptr),
@@ -34,6 +34,11 @@ bool MEngine::OnCreate(std::string name_, int width_, int height_)
 		OnDestroy();
 		return isRunning = false;
 	}
+
+	ShaderHandler::GetInstance()->CreateProgram("colorShader",
+		"Engine/Shaders/ColorVertexShader.glsl",
+		"Engine/Shaders/ColorFragmentShader.glsl");
+
 
 
 	if (gameMainFrame) {
@@ -121,6 +126,7 @@ void MEngine::Render()
 
 void MEngine::OnDestroy()
 {
+	ShaderHandler::GetInstance()->OnDestroy();
 	delete timer;
 	timer = nullptr;
 	

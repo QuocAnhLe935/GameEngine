@@ -1,7 +1,8 @@
 #include "Model.h"
 //set meshe vector to empty vector
-Model::Model() :meshes(std::vector<Mesh*>())
+Model::Model(GLuint shaderProgram_) :meshes(std::vector<Mesh*>()), shaderProgram(0)
 {
+	shaderProgram = shaderProgram_;
 }
 
 Model::~Model()
@@ -25,6 +26,8 @@ Model::~Model()
 
 void Model::Render()
 {
+	//tell opengl to switch shader pro to specifi shader pro we are passing it
+	glUseProgram(shaderProgram);
 	//for each mesh in meshes list call render on it
 	for (auto m : meshes) {
 		m->Render();

@@ -3,12 +3,15 @@
 
 #include "Window.h"
 #include "Timer.h"
-#include "Debug.h"
+#include "../../Debug/Debug.h"
 #include "GameMainFrame.h"
-#include "../../Scene.h"
+
+#include"../../Game/Scene/Scene.h"
 #include <memory>
 
-#include "../../GameObject.h"
+#include"../Rendering/3D/GameObject.h"
+
+#include "../Graphics/ShaderHandler.h"
 class MEngine
 {
 public:

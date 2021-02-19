@@ -12,7 +12,7 @@ struct Vertex {
 	glm::vec3 normal;
 	//what place on 2d image does this vertex take its textu info from
 	glm::vec2 textureCoordinates;
-	glm::vec3 colour;
+	glm::vec3 color;
 	
 	
 };
