@@ -2,7 +2,7 @@
 #include "../../Debug/Debug.h"
 Window::Window() : window(nullptr), context(nullptr)
 {
-    
+   
 }
 
 Window::~Window()
@@ -13,6 +13,7 @@ Window::~Window()
 bool Window::OnCreate(std::string name_, int width_, int height_)
 {
     //anything less 0 means it didn't work
+
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         Debug::FatalError("FAILED TO INITIALIZED SDL", "WINDOW.CPP", __LINE__);
         return false;
@@ -42,6 +43,7 @@ bool Window::OnCreate(std::string name_, int width_, int height_)
     GLenum err = glewInit();
     if (err != GLEW_OK) {
         std::cout << "Failed to initialize GLEW" << std::endl;
+        Debug::FatalError("FAILED TO INITIALIZE GLEW", "Window.cpp", __LINE__);
         //return false;
         exit(1);
     }
@@ -57,7 +59,7 @@ void Window::OnDestroy()
 {
     //Delete the OPENGL context
     SDL_GL_DeleteContext(context);
-
+    context = nullptr;
     //Destroy Wind
     SDL_DestroyWindow(window);
 
