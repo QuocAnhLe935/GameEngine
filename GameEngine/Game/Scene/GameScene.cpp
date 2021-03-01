@@ -21,8 +21,9 @@ bool GameScene::OnCreate()
 	Vertex v;
 	std::vector<Vertex> vertexList;
 	//reserve(doesn't have to move in the actual vector in the memory)
-	/*vertexList.reserve(3);
-	v.position = glm::vec3(-0.5f, 0.5f, 0.0f);
+	vertexList.reserve(3);
+
+	/*v.position = glm::vec3(-0.5f, 0.5f, 0.0f);
 	v.color = glm::vec3(1.0f, 0.0f, 0.0f);
 	vertexList.push_back(v);
 

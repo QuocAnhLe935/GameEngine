@@ -6,6 +6,7 @@ Mesh::Mesh(std::vector<Vertex>& vertexList_, GLuint shaderProgram_)
 {
 	//setting the classes vertxlist vect= verList_ get pass in as parameter
 	vertexList = vertexList_;
+	shaderProgram = shaderProgram_;
 	GenerateBuffer();
 }
 
@@ -26,7 +27,8 @@ void Mesh::Render(glm::mat4 transform_)
 {
 	//bind VAO we want to use
 	glBindVertexArray(VAO);
-
+	//when the object is rendered, thier Z value will be taken into account
+	glEnable(GL_DEPTH_TEST);
 	//1p location of unif that want to set
 	//2p how many varible, counts, uniform setting
 	//3p want to transpose matrix? 4p ref/ptr to matrix

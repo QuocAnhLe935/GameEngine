@@ -47,8 +47,7 @@ bool Window::OnCreate(std::string name_, int width_, int height_)
         //return false;
         exit(1);
     }
-    //when the object is rendered, thier Z value will be taken into account
-    glEnable(GL_DEPTH_TEST);
+   
     std::cout << "OpenGL version:" << glGetString(GL_VERSION) << std::endl;
 
     //if there is no if error sta return true
