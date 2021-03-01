@@ -6,6 +6,7 @@ GameScene::GameScene(): shape(nullptr)
 
 GameScene::~GameScene()
 {
+	model = nullptr;
 	delete shape;
 	shape = nullptr;
 }
@@ -20,7 +21,7 @@ bool GameScene::OnCreate()
 	Vertex v;
 	std::vector<Vertex> vertexList;
 	//reserve(doesn't have to move in the actual vector in the memory)
-	vertexList.reserve(6);
+	/*vertexList.reserve(3);
 	v.position = glm::vec3(-0.5f, 0.5f, 0.0f);
 	v.color = glm::vec3(1.0f, 0.0f, 0.0f);
 	vertexList.push_back(v);
@@ -31,7 +32,7 @@ bool GameScene::OnCreate()
 	
 	v.position = glm::vec3(-0.5f, -0.5f, 0.0f);
 	v.color = glm::vec3(0.0f, 0.0f, 1.0f);
-	vertexList.push_back(v);
+	vertexList.push_back(v);*/
 
 
 
@@ -48,11 +49,12 @@ bool GameScene::OnCreate()
 	vertexList.push_back(v);
 
 	
-	Model* model = new Model(ShaderHandler::GetInstance()->GetShader("colorShader"));
+	model = new Model(ShaderHandler::GetInstance()->GetShader("colorShader"));
 	//create new mesh pass in vertexlist
 	//get 3 meshes verticle to Mesh contructor 
 	//then pass entire mesh object to model
-	model->AddMesh(new Mesh(vertexList));
+	model->AddMesh(new Mesh(vertexList, ShaderHandler::GetInstance()->GetShader("colorShader")));
+	model->SetScale(glm::vec3(0.5f));
 
 	shape = new GameObject(model);
 
@@ -61,7 +63,7 @@ bool GameScene::OnCreate()
 
 void GameScene::Update(const float deltaTime_)
 {
-	
+	model->SetAngle(model->GetAngle() + 0.05f);
 }
 
 void GameScene::Render()

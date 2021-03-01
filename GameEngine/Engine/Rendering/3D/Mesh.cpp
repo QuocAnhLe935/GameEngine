@@ -1,8 +1,8 @@
 #include "Mesh.h"
 
-Mesh::Mesh(std::vector<Vertex>& vertexList_)
+Mesh::Mesh(std::vector<Vertex>& vertexList_, GLuint shaderProgram_)
 //						set to equal empty vector
-	:VAO(0), VBO(0), vertexList(std::vector<Vertex>())
+	:VAO(0), VBO(0), vertexList(std::vector<Vertex>()), shaderProgram(0)
 {
 	//setting the classes vertxlist vect= verList_ get pass in as parameter
 	vertexList = vertexList_;
@@ -22,11 +22,16 @@ Mesh::~Mesh()
 	vertexList.clear();
 }
 
-void Mesh::Render()
+void Mesh::Render(glm::mat4 transform_)
 {
 	//bind VAO we want to use
 	glBindVertexArray(VAO);
-	
+
+	//1p location of unif that want to set
+	//2p how many varible, counts, uniform setting
+	//3p want to transpose matrix? 4p ref/ptr to matrix
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(transform_));
+
 	//draw arrays
 	//1p render type, 2p start element 0 (array), 3p end of array (how many object are you goin to draw)
 	glDrawArrays(GL_TRIANGLES, 0, vertexList.size());
@@ -89,4 +94,6 @@ void Mesh::GenerateBuffer()
 	//close the Locker nothing can screw around VAO VBO datas
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//get unilocation
+	modelLoc = glGetUniformLocation(shaderProgram, "model");
 }

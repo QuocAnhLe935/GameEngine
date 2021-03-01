@@ -9,8 +9,10 @@ out vec3 Normal;
 out vec2 TexCoords;
 out vec3 Color;
 
+uniform mat4 model;
+
 void main(){
 //gl pos what is the vertex pos should be
-	gl_Position = vec4(position, 1.0f);
+	gl_Position = model * vec4(position, 1.0f);
 	Color = color;
 }

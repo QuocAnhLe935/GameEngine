@@ -4,7 +4,7 @@
 #include <glew.h>
 #include <vector>
 #include <glm/glm.hpp>
-
+#include <glm/gtc/type_ptr.hpp>
 
 
 struct Vertex {
@@ -20,9 +20,9 @@ class Mesh
 {
 public:
 	//take vector of vertext objects -&pass by reference(address)
-	Mesh(std::vector<Vertex>& vertexList_);
+	Mesh(std::vector<Vertex>& vertexList_, GLuint shaderProgram_);
 	~Mesh();
-	void Render();
+	void Render(glm::mat4 transform_);
 
 private:
 	//set up VAO VBO
@@ -30,7 +30,8 @@ private:
 	//refer to week4.pdf
 	GLuint VAO, VBO;
 	std::vector<Vertex>vertexList;
-
+	GLuint shaderProgram;
+	GLuint modelLoc;
 };
 
 #endif // !MESH_H
