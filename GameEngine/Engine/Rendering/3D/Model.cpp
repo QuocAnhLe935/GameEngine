@@ -43,13 +43,13 @@ Model::~Model()
 	}
 }
 
-void Model::Render()
+void Model::Render(Camera* camera_)
 {
 	//tell opengl to switch shader pro to specifi shader pro we are passing it
 	glUseProgram(shaderProgram);
 	//for each mesh in meshes list call render on it
 	for (auto m : meshes) {
-		m->Render(GetTransform());
+		m->Render(camera_, GetTransform());
 	}
 }
 

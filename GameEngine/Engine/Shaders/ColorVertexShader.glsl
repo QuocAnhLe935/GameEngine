@@ -10,9 +10,11 @@ out vec2 TexCoords;
 out vec3 Color;
 
 uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
 
 void main(){
 //gl pos what is the vertex pos should be
-	gl_Position = model * vec4(position, 1.0f);
+	gl_Position = projection * view * model * vec4(position, 1.0f);
 	Color = color;
 }

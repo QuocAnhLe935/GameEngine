@@ -12,6 +12,8 @@
 #include"../Rendering/3D/GameObject.h"
 
 #include "../Graphics/ShaderHandler.h"
+
+#include "../Core/Camera.h"
 class MEngine
 {
 public:
@@ -31,9 +33,13 @@ public:
 
 	bool GetIsRunning() const;
 	int GetCurrentScene() const;
+	float GetScreenWidth() const;
+	float GetScreenHeight() const;
+	Camera* GetCamera() const;
 
 	void SetCurrentScene(int sceneNum_);
 	void SetGameMainFrame(GameMainFrame* gamemainframe_);
+	void SetCamera(Camera* camera_);
 
 private:
 	MEngine();
@@ -62,6 +68,8 @@ private:
 
 	GameMainFrame* gameMainFrame;
 	int currentSceneNum;
+
+	Camera* camera;
 };
 
 #endif // !MENGINE

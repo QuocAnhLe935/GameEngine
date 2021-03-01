@@ -79,17 +79,27 @@ void MEngine::Exit()
 	isRunning = false;
 }
 
-
-
-int MEngine::GetCurrentScene() const
+float MEngine::GetScreenWidth() const
 {
-	
-	return currentSceneNum;
+	//static cast because window width is int 
+	return static_cast<float>(window->GetWidth());
 }
+
+float MEngine::GetScreenHeight() const
+{
+	return static_cast<float>(window->GetHeight());
+}
+
 
 bool MEngine::GetIsRunning() const
 {
 	return isRunning;
+}
+
+int MEngine::GetCurrentScene() const
+{
+
+	return currentSceneNum;
 }
 
 void MEngine::SetCurrentScene(int sceneNum_)
@@ -100,6 +110,16 @@ void MEngine::SetCurrentScene(int sceneNum_)
 void MEngine::SetGameMainFrame(GameMainFrame* gamemainframe_)
 {
 	gameMainFrame = gamemainframe_;
+}
+
+Camera* MEngine::GetCamera() const
+{
+	return camera;
+}
+
+void MEngine::SetCamera(Camera* camera_)
+{
+	camera = camera_;
 }
 
 void MEngine::Update(const float deltaTime_)
@@ -135,6 +155,9 @@ void MEngine::OnDestroy()
 
 	delete gameMainFrame;
 	gameMainFrame = nullptr;
+
+	delete camera;
+	camera = nullptr;
 	
 	SDL_Quit();
 	exit(0);

@@ -12,7 +12,7 @@ public:
 		glm::vec3 scale_ = glm::vec3(1.0f), float angle_ = 0.0f );
 	~Model();
 
-	void Render();
+	void Render(Camera* camera_);
 	void AddMesh(Mesh* mesh_);
 
 

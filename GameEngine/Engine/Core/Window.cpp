@@ -50,6 +50,9 @@ bool Window::OnCreate(std::string name_, int width_, int height_)
    
     std::cout << "OpenGL version:" << glGetString(GL_VERSION) << std::endl;
 
+    
+    glViewport(0, 0, width, height);
+
     //if there is no if error sta return true
     return true;
 }

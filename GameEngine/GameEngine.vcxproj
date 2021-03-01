@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Core\Camera.cpp" />
     <ClCompile Include="Debug\Debug.cpp" />
     <ClCompile Include="Engine\Rendering\3D\GameObject.cpp" />
     <ClCompile Include="Game\Scene\GameScene.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="Engine\Graphics\ShaderHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Core\Camera.h" />
     <ClInclude Include="Debug\Debug.h" />
     <ClInclude Include="Engine\Core\Window.h" />
     <ClInclude Include="Engine\Core\MEngine.h" />

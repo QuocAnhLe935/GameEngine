@@ -2,7 +2,7 @@
 
 Mesh::Mesh(std::vector<Vertex>& vertexList_, GLuint shaderProgram_)
 //						set to equal empty vector
-	:VAO(0), VBO(0), vertexList(std::vector<Vertex>()), shaderProgram(0)
+	:VAO(0), VBO(0), vertexList(std::vector<Vertex>()), shaderProgram(0), viewLoc(0), projectionLoc(0)
 {
 	//setting the classes vertxlist vect= verList_ get pass in as parameter
 	vertexList = vertexList_;
@@ -23,7 +23,7 @@ Mesh::~Mesh()
 	vertexList.clear();
 }
 
-void Mesh::Render(glm::mat4 transform_)
+void Mesh::Render(Camera* camera_, glm::mat4 transform_)
 {
 	//bind VAO we want to use
 	glBindVertexArray(VAO);
@@ -33,6 +33,10 @@ void Mesh::Render(glm::mat4 transform_)
 	//2p how many varible, counts, uniform setting
 	//3p want to transpose matrix? 4p ref/ptr to matrix
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(transform_));
+
+	//camera stuffs
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetView()));
+	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetPerspective()));
 
 	//draw arrays
 	//1p render type, 2p start element 0 (array), 3p end of array (how many object are you goin to draw)
@@ -98,4 +102,6 @@ void Mesh::GenerateBuffer()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	//get unilocation
 	modelLoc = glGetUniformLocation(shaderProgram, "model");
+	viewLoc = glGetUniformLocation(shaderProgram, "view");
+	projectionLoc = glGetUniformLocation(shaderProgram, "projection");
 }
