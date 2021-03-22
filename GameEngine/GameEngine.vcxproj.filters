@@ -57,6 +57,7 @@
     </ClCompile>
     <ClCompile Include="Engine\Graphics\ShaderHandler.cpp" />
     <ClCompile Include="Engine\Core\Camera.cpp" />
+    <ClCompile Include="Engine\Graphics\TextureHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.h">
@@ -97,9 +98,12 @@
     </ClInclude>
     <ClInclude Include="Engine\Graphics\ShaderHandler.h" />
     <ClInclude Include="Engine\Core\Camera.h" />
+    <ClInclude Include="Engine\Graphics\TextureHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Shaders\ColorVertexShader.glsl" />
     <None Include="Engine\Shaders\ColorFragmentShader.glsl" />
+    <None Include="Engine\Shaders\VertextShader.glsl" />
+    <None Include="Engine\Shaders\FragmentShader.glsl" />
   </ItemGroup>
 </Project>

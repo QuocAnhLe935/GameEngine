@@ -57,6 +57,7 @@ void Model::AddMesh(Mesh* mesh_)
 {
 	//add a mesh to meshes vector
 	meshes.push_back(mesh_);
+	
 }
 
 glm::vec3 Model::GetPosition() const

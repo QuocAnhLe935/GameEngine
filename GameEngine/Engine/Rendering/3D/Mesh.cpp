@@ -1,11 +1,12 @@
 #include "Mesh.h"
 
-Mesh::Mesh(std::vector<Vertex>& vertexList_, GLuint shaderProgram_)
+Mesh::Mesh(std::vector<Vertex>& vertexList_, GLuint textureID_, GLuint shaderProgram_)
 //						set to equal empty vector
-	:VAO(0), VBO(0), vertexList(std::vector<Vertex>()), shaderProgram(0), viewLoc(0), projectionLoc(0)
+	:VAO(0), VBO(0), vertexList(std::vector<Vertex>()), textureID(0), shaderProgram(0), viewLoc(0), projectionLoc(0), textureLoc(0)
 {
 	//setting the classes vertxlist vect= verList_ get pass in as parameter
 	vertexList = vertexList_;
+	textureID = textureID_;
 	shaderProgram = shaderProgram_;
 	GenerateBuffer();
 }
@@ -25,24 +26,36 @@ Mesh::~Mesh()
 
 void Mesh::Render(Camera* camera_, glm::mat4 transform_)
 {
-	//bind VAO we want to use
-	glBindVertexArray(VAO);
-	//when the object is rendered, thier Z value will be taken into account
-	glEnable(GL_DEPTH_TEST);
-	//1p location of unif that want to set
-	//2p how many varible, counts, uniform setting
-	//3p want to transpose matrix? 4p ref/ptr to matrix
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(transform_));
+	//assign unf varible to texture unit num 0
+	glUniform1i(textureLoc, 0);
+	//active texture num0
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	
+	
 
 	//camera stuffs
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetView()));
 	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetPerspective()));
 
+	//bind VAO we want to use
+	glBindVertexArray(VAO);
+
+	//when the object is rendered, thier Z value will be taken into account
+	glEnable(GL_DEPTH_TEST);
+
+	//1p location of unif that want to set
+	//2p how many varible, counts, uniform setting
+	//3p want to transpose matrix? 4p ref/ptr to matrix
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(transform_));
+
 	//draw arrays
 	//1p render type, 2p start element 0 (array), 3p end of array (how many object are you goin to draw)
 	glDrawArrays(GL_TRIANGLES, 0, vertexList.size());
+	//glDrawArrays(GL_LINES, 0, vertexList.size());
 	//clear vertex array for future use
 	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Mesh::GenerateBuffer()
@@ -104,4 +117,5 @@ void Mesh::GenerateBuffer()
 	modelLoc = glGetUniformLocation(shaderProgram, "model");
 	viewLoc = glGetUniformLocation(shaderProgram, "view");
 	projectionLoc = glGetUniformLocation(shaderProgram, "projection");
+	textureLoc = glGetUniformLocation(shaderProgram, "inputTexture");
 }

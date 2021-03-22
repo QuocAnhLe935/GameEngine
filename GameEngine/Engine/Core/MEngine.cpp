@@ -39,6 +39,10 @@ bool MEngine::OnCreate(std::string name_, int width_, int height_)
 		"Engine/Shaders/ColorVertexShader.glsl",
 		"Engine/Shaders/ColorFragmentShader.glsl");
 
+	ShaderHandler::GetInstance()->CreateProgram("DefaultShader",
+		"Engine/Shaders/VertextShader.glsl",
+		"Engine/Shaders/FragmentShader.glsl");
+
 
 
 	if (gameMainFrame) {
@@ -133,7 +137,7 @@ void MEngine::Update(const float deltaTime_)
 
 void MEngine::Render()
 {
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, .0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//call game render
@@ -147,6 +151,7 @@ void MEngine::Render()
 void MEngine::OnDestroy()
 {
 	ShaderHandler::GetInstance()->OnDestroy();
+	TextureHandler::GetInstance()->OnDestroy();
 	delete timer;
 	timer = nullptr;
 	
@@ -158,6 +163,8 @@ void MEngine::OnDestroy()
 
 	delete camera;
 	camera = nullptr;
+
+	
 	
 	SDL_Quit();
 	exit(0);
