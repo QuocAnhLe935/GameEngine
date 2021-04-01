@@ -52,12 +52,13 @@
     <ClCompile Include="Engine\Rendering\3D\GameObject.cpp">
       <Filter>Engine\Rendering\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\Debug.cpp">
-      <Filter>Debug</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Graphics\ShaderHandler.cpp" />
     <ClCompile Include="Engine\Core\Camera.cpp" />
     <ClCompile Include="Engine\Graphics\TextureHandler.cpp" />
+    <ClCompile Include="Engine\Core\Debug.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\FX\LightSource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.h">
@@ -93,17 +94,20 @@
     <ClInclude Include="Engine\Rendering\3D\GameObject.h">
       <Filter>Engine\Rendering\3D</Filter>
     </ClInclude>
-    <ClInclude Include="Debug\Debug.h">
-      <Filter>Debug</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Graphics\ShaderHandler.h" />
     <ClInclude Include="Engine\Core\Camera.h" />
     <ClInclude Include="Engine\Graphics\TextureHandler.h" />
+    <ClInclude Include="Engine\Core\Debug.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\FX\LightSource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Shaders\ColorVertexShader.glsl" />
     <None Include="Engine\Shaders\ColorFragmentShader.glsl" />
     <None Include="Engine\Shaders\VertextShader.glsl" />
     <None Include="Engine\Shaders\FragmentShader.glsl" />
+    <None Include="Engine\Shaders\MultiVert.glsl" />
+    <None Include="Engine\Shaders\MultiFrag.glsl" />
   </ItemGroup>
 </Project>

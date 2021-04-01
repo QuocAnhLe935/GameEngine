@@ -18,7 +18,7 @@ TextureHandler* TextureHandler::GetInstance()
 void TextureHandler::OnDestroy()
 {
     if (textures.size() > 0) {
-        for (auto t : textures) {
+        for (auto t : textures ) {
             glDeleteTextures(1, &t->textureID);
             delete t;
             t = nullptr;

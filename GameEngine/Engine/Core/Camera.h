@@ -3,6 +3,8 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "../FX/LightSource.h"
+#include <vector>
 
 class Camera
 {
@@ -18,6 +20,14 @@ public:
 	glm::mat4 GetOrthographic()const;
 	glm::vec3 GetPosition() const;
 
+
+	//void Getlights(std::string name);
+	void Addlight(LightSource* lightsource_);
+	 std::vector<LightSource*> get_light() const;
+	
+	
+	
+
 private:
 	void UpdateCameraVectors();
 	glm::vec3 position;
@@ -27,6 +37,9 @@ private:
 	float nearPlane, farPlane;
 	//camera upward direction(forward), worldup is a ref to what dir is
 	glm::vec3 forward, up, right, worldUp;
+
+	std::vector<LightSource*> lightS;
+	
 };
 
 #endif // ! CAMERA_H

@@ -3,7 +3,8 @@
 
 #include "Window.h"
 #include "Timer.h"
-#include "../../Debug/Debug.h"
+
+#include"Debug.h"
 #include "GameMainFrame.h"
 
 #include"../../Game/Scene/Scene.h"

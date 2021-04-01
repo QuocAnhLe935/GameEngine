@@ -6,7 +6,7 @@
 #include <vector>
 #include <memory>
 #include <glew.h>
-#include "../../Debug/Debug.h"
+#include "../Core/Debug.h"
 class ShaderHandler
 {
 public:

@@ -6,7 +6,7 @@
 #include <vector>
 #include <SDL.h>
 #include <SDL_image.h>
-#include "../../Debug/Debug.h"
+#include"../Core/Debug.h"
 #include <glew.h>
 
 struct Texture {

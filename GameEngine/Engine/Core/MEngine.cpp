@@ -39,10 +39,10 @@ bool MEngine::OnCreate(std::string name_, int width_, int height_)
 		"Engine/Shaders/ColorVertexShader.glsl",
 		"Engine/Shaders/ColorFragmentShader.glsl");
 
-	ShaderHandler::GetInstance()->CreateProgram("DefaultShader",
-		"Engine/Shaders/VertextShader.glsl",
-		"Engine/Shaders/FragmentShader.glsl");
-
+	ShaderHandler::GetInstance()->CreateProgram("basicShader",
+		"Engine/Shaders/MultiVert.glsl",
+		"Engine/Shaders/MultiFrag.glsl");
+	//FragmentShader
 
 
 	if (gameMainFrame) {
@@ -137,7 +137,7 @@ void MEngine::Update(const float deltaTime_)
 
 void MEngine::Render()
 {
-	glClearColor(0.0f, 0.0f, .0f, 1.0f);
+	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//call game render

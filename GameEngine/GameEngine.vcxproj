@@ -146,9 +146,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Core\Camera.cpp" />
-    <ClCompile Include="Debug\Debug.cpp" />
+    <ClCompile Include="Engine\Core\Debug.cpp" />
     <ClCompile Include="Engine\Rendering\3D\GameObject.cpp" />
     <ClCompile Include="Game\Scene\GameScene.cpp" />
+    <ClCompile Include="Engine\FX\LightSource.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Engine\Core\Window.cpp" />
     <ClCompile Include="Engine\Core\MEngine.cpp" />
@@ -162,7 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Camera.h" />
-    <ClInclude Include="Debug\Debug.h" />
+    <ClInclude Include="Engine\Core\Debug.h" />
     <ClInclude Include="Engine\Core\Window.h" />
     <ClInclude Include="Engine\Core\MEngine.h" />
     <ClInclude Include="Engine\Core\Timer.h" />
@@ -176,11 +177,14 @@
     <ClInclude Include="Game\Scene\StartScene.h" />
     <ClInclude Include="Engine\Graphics\ShaderHandler.h" />
     <ClInclude Include="Engine\Graphics\TextureHandler.h" />
+    <ClInclude Include="Engine\FX\LightSource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Shaders\ColorFragmentShader.glsl" />
     <None Include="Engine\Shaders\ColorVertexShader.glsl" />
     <None Include="Engine\Shaders\FragmentShader.glsl" />
+    <None Include="Engine\Shaders\MultiFrag.glsl" />
+    <None Include="Engine\Shaders\MultiVert.glsl" />
     <None Include="Engine\Shaders\VertextShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

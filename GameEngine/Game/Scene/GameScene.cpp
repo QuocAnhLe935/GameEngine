@@ -10,6 +10,9 @@ GameScene::~GameScene()
 	model = nullptr;
 	delete shape;
 	shape = nullptr;
+	
+	light[0] = nullptr;
+	light[1] = nullptr;
 
 }
 
@@ -22,6 +25,31 @@ bool GameScene::OnCreate()
 
 
 	MEngine::GetInstance()->GetCamera()->SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
+	
+	//LightSource(glm::vec3(0.0f, 0.0f, 2.0f), 0.1f, 0.5f, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f));
+	light[0] = new LightSource();
+	light[1] = new LightSource();
+
+	/*1st LIGHT*/
+	light[0]->setPosition(glm::vec3(1.0f, 0.0f, 1.4f));
+	light[0]->setAmbient(0.1f);
+	light[0]->setDiffuse(0.8f);
+	light[0]->setSpecular(0.7f);
+	light[0]->setLightColor(glm::vec3(1.0f, 1.0f, 1.0f));
+
+	/*2nd LIGHT*/
+	light[1]->setPosition(glm::vec3(1.0f, 0.0f, 1.4f));
+	light[1]->setAmbient(0.1f);
+	light[1]->setDiffuse(0.8f);
+	light[1]->setSpecular(0.7f);
+	light[1]->setLightColor(glm::vec3(2.0f, 1.0f, 2.0f));
+
+	
+
+
+	MEngine::GetInstance()->GetCamera()->Addlight(light[0]);
+	MEngine::GetInstance()->GetCamera()->Addlight(light[1]);
+
 	TextureHandler::GetInstance()->CreateTexture("CheckerboardTexture", "./Resources/Textures/CheckerboardTexture.png");
 
 

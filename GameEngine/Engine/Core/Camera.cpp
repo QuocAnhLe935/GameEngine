@@ -20,11 +20,15 @@ Camera::Camera()
     orthorgraphic = glm::ortho(0.0f, MEngine::GetInstance()->GetScreenWidth(),
         0.f, MEngine::GetInstance()->GetScreenHeight(), -1.f, 1.f);
 
+    //lightS = std::vector<LightSource*>();
+
+
     UpdateCameraVectors();
 }
 
 Camera::~Camera()
 {
+    
 }
 
 void Camera::SetPosition(glm::vec3 position_)
@@ -60,12 +64,23 @@ glm::vec3 Camera::GetPosition() const
     return position;
 }
 
+void Camera::Addlight(LightSource* lightsource_)
+{
+    lightS.push_back(lightsource_);
+}
+
+std::vector<LightSource*> Camera::get_light() const
+{
+    return lightS; 
+}
+
+
 void Camera::UpdateCameraVectors()
 {
     forward.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     forward.y = sin(glm::radians(pitch));
     forward.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-
+    
     forward = glm::normalize(forward);
     right = glm::normalize(glm::cross(forward, worldUp));
     up = glm::normalize(glm::cross(right, forward));

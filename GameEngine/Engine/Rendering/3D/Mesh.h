@@ -5,6 +5,8 @@
 #include <vector>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "../../FX/LightSource.h"
+
 
 #include"../../Core/Camera.h"
 struct Vertex {
@@ -25,6 +27,7 @@ public:
 	void Render(Camera* camera_, glm::mat4 transform_);
 
 private:
+	
 	//set up VAO VBO
 	void GenerateBuffer();
 	//refer to week4.pdf
@@ -32,7 +35,7 @@ private:
 	std::vector<Vertex>vertexList;
 	GLuint shaderProgram;
 	GLuint textureID;
-	GLuint modelLoc, viewLoc, projectionLoc, textureLoc;
+	GLuint modelLoc, viewLoc,  projectionLoc, textureLoc, lightPos[2], lightAmbient[2], lightDiffuse[2], lightColor[2], lightSpecular[2], cameraLoc;
 };
 
 #endif // !MESH_H
