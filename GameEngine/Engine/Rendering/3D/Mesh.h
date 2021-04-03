@@ -35,7 +35,7 @@ private:
 	std::vector<Vertex>vertexList;
 	GLuint shaderProgram;
 	GLuint textureID;
-	GLuint modelLoc, viewLoc,  projectionLoc, textureLoc, lightPos[2], lightAmbient[2], lightDiffuse[2], lightColor[2], lightSpecular[2], cameraLoc;
+	GLuint modelLoc, viewLoc,  projectionLoc, textureLoc, lightPos, lightAmbient, lightDiffuse, lightColor, lightSpecular, cameraLoc;
 };
 
 #endif // !MESH_H

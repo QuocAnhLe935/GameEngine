@@ -15,7 +15,7 @@ public:
 private:
 	GameObject* shape;
 	Model* model;
-	LightSource* light[2];
+	LightSource* light;
 };
 
 #endif // !GAMESCENE_H

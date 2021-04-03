@@ -40,8 +40,8 @@ bool MEngine::OnCreate(std::string name_, int width_, int height_)
 		"Engine/Shaders/ColorFragmentShader.glsl");
 
 	ShaderHandler::GetInstance()->CreateProgram("basicShader",
-		"Engine/Shaders/MultiVert.glsl",
-		"Engine/Shaders/MultiFrag.glsl");
+		"Engine/Shaders/VertextShader.glsl",
+		"Engine/Shaders/FragmentShader.glsl");
 	//FragmentShader
 
 
