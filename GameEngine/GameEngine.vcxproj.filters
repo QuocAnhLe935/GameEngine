@@ -59,6 +59,7 @@
       <Filter>Debug</Filter>
     </ClCompile>
     <ClCompile Include="Engine\FX\LightSource.cpp" />
+    <ClCompile Include="Engine\Rendering\3D\LoadOBJmodel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.h">
@@ -101,6 +102,7 @@
       <Filter>Debug</Filter>
     </ClInclude>
     <ClInclude Include="Engine\FX\LightSource.h" />
+    <ClInclude Include="Engine\Rendering\3D\LoadOBJmodel.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Shaders\ColorVertexShader.glsl" />

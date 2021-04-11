@@ -1,13 +1,17 @@
 #include "Mesh.h"
 
-Mesh::Mesh(std::vector<Vertex>& vertexList_, GLuint textureID_, GLuint shaderProgram_)
+Mesh::Mesh(SubMesh& subMesh_, GLuint shaderProgram_)
 //						set to equal empty vector
-	:VAO(0), VBO(0), vertexList(std::vector<Vertex>()), textureID(0), shaderProgram(0), viewLoc(0), projectionLoc(0), textureLoc(0)
+	:VAO(0), VBO(0), vertexList(std::vector<Vertex>()),  shaderProgram(0), viewLoc(0), projectionLoc(0), textureLoc(0)
 {
 	//setting the classes vertxlist vect= verList_ get pass in as parameter
-	vertexList = vertexList_;
-	textureID = textureID_;
+	subMesh=subMesh_;
 	shaderProgram = shaderProgram_;
+	lightAmbient = 0;
+	lightColor = 0;
+	lightDiffuse = 0;
+	lightPos = 0;
+	cameraLoc = 0;
 	GenerateBuffer();
 }
 
@@ -19,17 +23,23 @@ Mesh::~Mesh()
 	//delete VBO
 	glDeleteBuffers(1, &VBO);
 
-	//clear=hold not pointer object
-	vertexList.clear();
+	if (subMesh.vertexList.size() > 0) {
+		subMesh.vertexList.clear();
+	}
+
+	if (subMesh.meshIndices.size() > 0)
+	{
+		subMesh.meshIndices.clear();
+	}
 }
 
-void Mesh::Render(Camera* camera_, glm::mat4 transform_)
+void Mesh::Render(Camera* camera_, std::vector<glm::mat4>& instances_)
 {
 	//assign unf varible to texture unit num 0
 	glUniform1i(textureLoc, 0);
 	//active texture num0
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	glBindTexture(GL_TEXTURE_2D, subMesh.textureID);
 	
 	
 
@@ -60,14 +70,16 @@ void Mesh::Render(Camera* camera_, glm::mat4 transform_)
 	//when the object is rendered, thier Z value will be taken into account
 	glEnable(GL_DEPTH_TEST);
 
-	//1p location of unif that want to set
-	//2p how many varible, counts, uniform setting
-	//3p want to transpose matrix? 4p ref/ptr to matrix
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(transform_));
 
-	//draw arrays
+	for (int i = 0; i < instances_.size(); i++) {
+		//1p location of unif that want to set
+		//2p how many varible, counts, uniform setting
+		//3p want to transpose matrix? 4p ref/ptr to matrix
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(instances_[i]));
+		//draw arrays
 	//1p render type, 2p start element 0 (array), 3p end of array (how many object are you goin to draw)
-	glDrawArrays(GL_TRIANGLES, 0, vertexList.size());
+		glDrawArrays(GL_TRIANGLES, 0, subMesh.vertexList.size());
+	}
 	//glDrawArrays(GL_LINES, 0, vertexList.size());
 	//clear vertex array for future use
 	glBindVertexArray(0);
@@ -92,8 +104,8 @@ void Mesh::GenerateBuffer()
 	//size of buffer multiply of each vertex elements
 	//3rd para address of first item in array
 	//4th para data will be only change once(static)
-	glBufferData(GL_ARRAY_BUFFER, vertexList.size() * sizeof(Vertex),
-		&vertexList[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, subMesh.vertexList.size() * sizeof(Vertex),
+		&subMesh.vertexList[0], GL_STATIC_DRAW);
 
 	
 	//Position

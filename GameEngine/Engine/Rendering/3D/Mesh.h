@@ -18,13 +18,20 @@ struct Vertex {
 	
 	
 };
+
+struct SubMesh {
+	std::vector<Vertex> vertexList;
+	std::vector<unsigned> meshIndices;
+	GLuint textureID;
+};
+
 class Mesh
 {
 public:
 	//take vector of vertext objects -&pass by reference(address)
-	Mesh(std::vector<Vertex>& vertexList_, GLuint textureID_,GLuint shaderProgram_);
+	Mesh(SubMesh& subMesh_, GLuint shaderProgram_);
 	~Mesh();
-	void Render(Camera* camera_, glm::mat4 transform_);
+	void Render(Camera* camera_, std::vector<glm::mat4>& instances_);
 
 private:
 	
@@ -33,6 +40,7 @@ private:
 	//refer to week4.pdf
 	GLuint VAO, VBO;
 	std::vector<Vertex>vertexList;
+	SubMesh subMesh;
 	GLuint shaderProgram;
 	GLuint textureID;
 	GLuint modelLoc, viewLoc,  projectionLoc, textureLoc, lightPos, lightAmbient, lightDiffuse, lightColor, lightSpecular, cameraLoc;
