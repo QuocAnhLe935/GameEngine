@@ -50,6 +50,8 @@ bool GameScene::OnCreate()
 
 	//TextureHandler::GetInstance()->CreateTexture("CheckerboardTexture", "./Resources/Textures/CheckerboardTexture.png");
 	model = new Model(ShaderHandler::GetInstance()->GetShader("basicShader"), "Resources/Models/Dice.obj", "Resources/Materials/Dice.mtl");
+
+
 	//Create verticles for triangle
 	//
 	//Vertex v;
@@ -61,9 +63,9 @@ bool GameScene::OnCreate()
 //color
 //	model = new Model(ShaderHandler::GetInstance()->GetShader("basicShader"), "", "");
 	
-	//SubMesh subMesh;
-	//subMesh.vertexList = vertexList;
-	//subMesh.textureID = TextureHandler::GetInstance()->GetTexture("CheckerboardTexture");
+	/*SubMesh subMesh;
+	subMesh.vertexList = vertexList;
+	subMesh.textureID = TextureHandler::GetInstance()->GetTexture("CheckerboardTexture");*/
 	//	//create new mesh pass in vertexlist
 	////get 3 meshes verticle to Mesh contructor 
 	////then pass entire mesh object to model

@@ -11,7 +11,7 @@ Model::Model(GLuint shaderProgram_, const std::string& objPath_, const std::stri
 	modelInstance.reserve(5);
 	modelInstance = std::vector<glm::mat4>();
 	meshes = std::vector<Mesh*>();
-
+	obj = nullptr;
 
 	obj = new LoadOBJmodel();
 	obj->LoadModel(objPath_, matPath_);

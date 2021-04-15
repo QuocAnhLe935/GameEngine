@@ -45,29 +45,6 @@ std::vector<SubMesh> LoadOBJmodel::GetSubMeshes()
 	return submeshs;
 }
 
-void LoadOBJmodel::PostProcessing()
-{
-	for (unsigned int i = 0; i < indices.size(); i++) {
-		Vertex vert;
-		vert.position = vertices[indices[i]];
-		vert.normal = normals[normalIndices[i]];
-		vert.textureCoordinates = textureCoords[textureIndices[i]];
-		meshVertices.push_back(vert);
-	}
-
-	SubMesh mesh;
-	mesh.vertexList = meshVertices;
-	mesh.meshIndices = indices;
-	mesh.textureID = currentTexture;
-
-	submeshs.push_back(mesh);
-	indices.clear();
-	normalIndices.clear();
-	textureIndices.clear();
-	meshVertices.clear();
-	currentTexture = 0;
-
-}
 
 void LoadOBJmodel::LoadModel(const std::string& filePath_)
 {
@@ -122,25 +99,47 @@ void LoadOBJmodel::LoadModel(const std::string& filePath_)
 		else if (line.substr(0, 2) == "f ") {
 			
 			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
+			//unsigned int a, at, an, b, bt, bn, c, ct, cn;
+			char d;
 			
 			std::stringstream t(line.substr(2));
-
-			/*std::stringstream t(line.substr(2));
-			std::stringstream t1(line.substr(2));
-			std::stringstream t2(line.substr(2));
-
-			std::stringstream t(line.substr(2));
-			std::stringstream t1(line.substr(2));
-			std::stringstream t2(line.substr(2));*/
-
-			
 
 			//extract from the file 
 
-			t >> vertexIndex[0] >> uvIndex[0] >> normalIndex[0]>> vertexIndex[1] >> uvIndex[1] >> normalIndex[1]>> vertexIndex[2] >> uvIndex[2] >> normalIndex[2];
+			t >> vertexIndex[0] >>d>> uvIndex[0] >>d>> normalIndex[0]>> vertexIndex[1] >>d>> uvIndex[1] >>d >> normalIndex[1] >> vertexIndex[2] >>d>> uvIndex[2] >>d>> normalIndex[2];
 			
-			
-			
+			vertexIndex[0]--;
+			vertexIndex[1]--;
+			vertexIndex[2]--;
+
+			uvIndex[0]--;
+			uvIndex[1]--;
+			uvIndex[2]--;
+
+			normalIndex[0]--;
+			normalIndex[1]--;
+			normalIndex[2]--;
+
+			//t >> a >> d >> at >> d >> an >> b >> d >> bt >> d >> bn >> c >> d >> ct >> d >> cn;
+			//a--; b--; c--;
+			//at--; bt--; ct--;
+			//an--; bn--; cn--;
+
+
+			//indices.push_back(a);
+			//indices.push_back(b);
+			//indices.push_back(c);
+
+			////push texture indices
+			//textureIndices.push_back(at);
+			//textureIndices.push_back(bt);
+			//textureIndices.push_back(ct);
+
+			////push normal indices
+			//normalIndices.push_back(an);
+			//normalIndices.push_back(bn);
+			//normalIndices.push_back(cn);
+
 
 			indices.push_back(vertexIndex[0]);
 			indices.push_back(vertexIndex[1]);
@@ -156,22 +155,7 @@ void LoadOBJmodel::LoadModel(const std::string& filePath_)
 			normalIndices.push_back(normalIndex[1]);
 			normalIndices.push_back(normalIndex[2]);
 
-			for (unsigned int i = 0; i < indices.size(); i++) {
-				unsigned int vertexIndex = indices[i];
-				vertices.push_back(glm::vec3(vertexIndex-1));
-			}
-
-			for (unsigned int i = 0; i < textureIndices.size(); i++) {
-				unsigned int uvIndex = textureIndices[i];
-				textureCoords.push_back(glm::vec2(uvIndex-1));
-			}
-
-			for (unsigned int i = 0; i < normalIndices.size(); i++) {
-				unsigned int normalIndex = normalIndices[i];
-				normals.push_back(glm::vec3(normalIndex-1));
-			}
-
-
+		
 			
 
 		}
@@ -180,6 +164,29 @@ void LoadOBJmodel::LoadModel(const std::string& filePath_)
 
 }
 
+void LoadOBJmodel::PostProcessing()
+{
+	for (unsigned int i = 0; i < indices.size(); i++) {
+		Vertex vert;
+		vert.position = vertices[indices[i]];
+		vert.normal = normals[normalIndices[i]];
+		vert.textureCoordinates = textureCoords[textureIndices[i]];
+		meshVertices.push_back(vert);
+	}
+
+	SubMesh mesh;
+	mesh.vertexList = meshVertices;
+	mesh.meshIndices = indices;
+	mesh.textureID = currentTexture;
+
+	submeshs.push_back(mesh);
+	indices.clear();
+	normalIndices.clear();
+	textureIndices.clear();
+	meshVertices.clear();
+	currentTexture = 0;
+
+}
 void LoadOBJmodel::LoadMaterial(const std::string& matName_)
 {
 	currentTexture = TextureHandler::GetInstance()->GetTexture(matName_);
