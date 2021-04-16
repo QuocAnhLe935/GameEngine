@@ -1,5 +1,3 @@
 [INFO]: SUCCESSFUL in:StartScene.cppon line: 18
 [INFO]: workedin:D:\School\GameEngine4\GameEngine\GameEngine\Engine\Core\MEngine.cppon line: 59
 [INFO]: Create game scenein:GameScene.cppon line: 22
-[ERROR]: Surface for texture diceTexture failed to be createdin:TextureHandler.cppon line: 40
-[ERROR]: Surface for texture diceTexture failed to be createdin:TextureHandler.cppon line: 40

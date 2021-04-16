@@ -49,7 +49,7 @@ bool GameScene::OnCreate()
 	//MEngine::GetInstance()->GetCamera()->Addlight(light[1]);
 
 	//TextureHandler::GetInstance()->CreateTexture("CheckerboardTexture", "./Resources/Textures/CheckerboardTexture.png");
-	model = new Model(ShaderHandler::GetInstance()->GetShader("basicShader"), "Resources/Models/Dice.obj", "Resources/Materials/Dice.mtl");
+	model = new Model(ShaderHandler::GetInstance()->GetShader("basicShader"), "Resources/Models/Apple.obj", "Resources/Materials/Apple.mtl");
 
 
 	//Create verticles for triangle
