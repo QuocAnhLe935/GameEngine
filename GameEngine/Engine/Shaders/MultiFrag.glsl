@@ -2,7 +2,6 @@
 
 in vec3 Normal;
 in vec2 TexCoords;
-in vec3 Color;
 in vec3 FragPosition;
 
 

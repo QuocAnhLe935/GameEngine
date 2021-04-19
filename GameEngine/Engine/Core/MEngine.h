@@ -10,10 +10,12 @@
 #include"../../Game/Scene/Scene.h"
 #include <memory>
 
+#include"../Rendering/SceneGraph.h"
 #include"../Rendering/3D/GameObject.h"
 
 #include "../Graphics/ShaderHandler.h"
 #include "../Graphics/TextureHandler.h"
+#include "../Graphics/MaterialHandler.h"
 
 #include "../Core/Camera.h"
 class MEngine

@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "../../FX/LightSource.h"
-
+#include"../../Graphics/MaterialHandler.h"
 
 #include"../../Core/Camera.h"
 struct Vertex {
@@ -14,15 +14,13 @@ struct Vertex {
 	glm::vec3 normal;
 	//what place on 2d image does this vertex take its textu info from
 	glm::vec2 textureCoordinates;
-	glm::vec3 color;
-	
-	
 };
 
 struct SubMesh {
 	std::vector<Vertex> vertexList;
 	std::vector<unsigned> meshIndices;
-	GLuint textureID;
+	//GLuint textureID;
+	Material material;
 };
 
 class Mesh

@@ -152,6 +152,9 @@ void MEngine::OnDestroy()
 {
 	ShaderHandler::GetInstance()->OnDestroy();
 	TextureHandler::GetInstance()->OnDestroy();
+	SceneGraph::GetInstance()->OnDestroy();
+	MaterialHandler::GetInstance()->OnDestroy();
+
 	delete timer;
 	timer = nullptr;
 	

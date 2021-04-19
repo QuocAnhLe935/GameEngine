@@ -39,14 +39,14 @@ void Mesh::Render(Camera* camera_, std::vector<glm::mat4>& instances_)
 	glUniform1i(textureLoc, 0);
 	//active texture num0
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, subMesh.textureID);
+	glBindTexture(GL_TEXTURE_2D, subMesh.material.diffuseMap);
 	
 	
 
 	//camera stuffs
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetView()));
 	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetPerspective()));
-	glUniformMatrix4fv(cameraLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetPosition()));
+	glUniform3fv(cameraLoc, 1, glm::value_ptr(camera_->GetPosition()));
 	
 	//1st light
 	glUniform1f(lightAmbient, camera_->get_light()[0]->getAmbient());
@@ -132,10 +132,7 @@ void Mesh::GenerateBuffer()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
 		(GLvoid*)offsetof(Vertex, textureCoordinates));
 
-	//Color
-	glEnableVertexAttribArray(3);
-	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-		(GLvoid*)offsetof(Vertex, color));
+;
 
 
 	//close the Locker nothing can screw around VAO VBO datas

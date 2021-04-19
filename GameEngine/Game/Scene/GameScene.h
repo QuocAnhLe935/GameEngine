@@ -13,8 +13,8 @@ public:
 	void Update(const float deltaTime_) override;
 	void Render() override;
 private:
-	GameObject* shape;
-	Model* model;
+	/*GameObject* shape;
+	Model* model;*/
 	LightSource* light;
 };
 

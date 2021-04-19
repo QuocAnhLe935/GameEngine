@@ -1,16 +1,11 @@
 #include "GameScene.h"
 
-GameScene::GameScene(): shape(nullptr)
+GameScene::GameScene()
 {
 }
 
 GameScene::~GameScene()
 {
-	delete model;
-	model = nullptr;
-	delete shape;
-	shape = nullptr;
-	
 	light = nullptr;
 	//light[1] = nullptr;
 
@@ -46,46 +41,24 @@ bool GameScene::OnCreate()
 
 
 	MEngine::GetInstance()->GetCamera()->Addlight(light);
-	//MEngine::GetInstance()->GetCamera()->Addlight(light[1]);
-
-	//TextureHandler::GetInstance()->CreateTexture("CheckerboardTexture", "./Resources/Textures/CheckerboardTexture.png");
-	model = new Model(ShaderHandler::GetInstance()->GetShader("basicShader"), "Resources/Models/Apple.obj", "Resources/Materials/Apple.mtl");
-
-
-	//Create verticles for triangle
-	//
-	//Vertex v;
-	//std::vector<Vertex> vertexList;
-	//reserve(doesn't have to move in the actual vector in the memory)
 	
-	
-
-//color
-//	model = new Model(ShaderHandler::GetInstance()->GetShader("basicShader"), "", "");
-	
-	/*SubMesh subMesh;
-	subMesh.vertexList = vertexList;
-	subMesh.textureID = TextureHandler::GetInstance()->GetTexture("CheckerboardTexture");*/
-	//	//create new mesh pass in vertexlist
-	////get 3 meshes verticle to Mesh contructor 
-	////then pass entire mesh object to model
-	//model->AddMesh(new Mesh(subMesh, ShaderHandler::GetInstance()->GetShader("basicShader")));
-	////model->SetScale(glm::vec3(0.5f));
-
-	shape = new GameObject(model);
-
+	Model* appleModel = new Model(ShaderHandler::GetInstance()->GetShader("basicShader"),"Resources/Models/Apple.obj", "Resources/Materials/Apple.mtl");
+	SceneGraph::GetInstance()->AddModel(appleModel);
+	SceneGraph::GetInstance()->AddGameObject(new GameObject(appleModel, glm::vec3(1.3f, 0.0f, 0.0f)), "Apple");
+	//shape = new GameObject(model);
+	appleModel = nullptr;
 	return true;
 }
 
 void GameScene::Update(const float deltaTime_)
 {
-	shape->Update(deltaTime_);
+	SceneGraph::GetInstance()->Update(deltaTime_);
 	
 	
 }
 
 void GameScene::Render()
 {
-	shape->Render(MEngine::GetInstance()->GetCamera());
+	SceneGraph::GetInstance()->Render(MEngine::GetInstance()->GetCamera());
 	
 }

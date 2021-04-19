@@ -4,6 +4,7 @@
 #include"Mesh.h"
 #include <sstream>
 #include"../../Graphics/TextureHandler.h"
+#include"../../FX/MaterialLoader.h"
 
 
 class LoadOBJmodel
@@ -27,7 +28,9 @@ private:
 	std::vector<unsigned int> indices, normalIndices, textureIndices;
 	std::vector<Vertex> meshVertices;
 	std::vector<SubMesh> submeshs;
-	GLuint currentTexture;
+	//GLuint currentTexture;
+
+	Material currentMaterial;
 };
 
 #endif // ! LOADOBJMODEL_H

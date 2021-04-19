@@ -77,6 +77,11 @@ glm::mat4 Model::GetTransform(unsigned int index_) const
 	return modelInstance[index_];
 }
 
+GLuint Model::GetShaderProgram() const
+{
+	return shaderProgram;
+}
+
 glm::mat4 Model::CreateTransform(glm::vec3 position_, float angle_, glm::vec3 rotation_, glm::vec3 scale_) const
 {
 	glm::mat4 model;
