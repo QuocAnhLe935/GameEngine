@@ -10,7 +10,7 @@
 struct Material {
 	inline Material() {
 		diffuseMap = 0;
-		shininess = 32.0f;
+		shininess = 32.0f;//32
 		transparency = 1.0f;
 		ambient = glm::vec3(1.0f);
 		diffuse = glm::vec3(1.0f);

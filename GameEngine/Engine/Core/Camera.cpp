@@ -64,6 +64,16 @@ glm::vec3 Camera::GetPosition() const
     return position;
 }
 
+float Camera::GetNearPlane() const
+{
+    return nearPlane;
+}
+
+float Camera::GetFarPlane() const
+{
+    return farPlane;
+}
+
 void Camera::Addlight(LightSource* lightsource_)
 {
     lightS.push_back(lightsource_);
@@ -72,6 +82,37 @@ void Camera::Addlight(LightSource* lightsource_)
 std::vector<LightSource*> Camera::get_light() const
 {
     return lightS; 
+}
+
+void Camera::ProcessMouseMovement(glm::vec2 offset_)
+{
+    offset_ *= 0.05;
+
+    yaw += offset_.x;
+    pitch += offset_.y;
+
+    if (pitch > 89.0f) {
+        pitch = 89.0f;
+    }
+    if (pitch < -89.0f) {
+        pitch = -89.0f;
+    }
+    if (yaw < 0.0f) {
+        yaw += 360.0f;
+    }
+    if (yaw > 360.0f) {
+        yaw -= 360.0f;
+    }
+    UpdateCameraVectors();
+}
+
+void Camera::ProcessMouseZoom(int y_)
+{
+    if (y_ < 0 || y_>0) {
+        position += static_cast<float>(y_) * (forward * 2.0f);
+
+    }
+    UpdateCameraVectors();
 }
 
 

@@ -17,6 +17,7 @@
 #include "../Graphics/TextureHandler.h"
 #include "../Graphics/MaterialHandler.h"
 
+#include"../Events/EventListener.h"
 #include "../Core/Camera.h"
 class MEngine
 {
@@ -44,6 +45,14 @@ public:
 	void SetCurrentScene(int sceneNum_);
 	void SetGameMainFrame(GameMainFrame* gamemainframe_);
 	void SetCamera(Camera* camera_);
+
+
+	void NotifyOfMousePressed(glm::vec2 mouse_, int buttonType_);
+	void NotifyOfMouseReleased(glm::vec2 mouse_, int buttonType_);
+	void NotifyOfMouseMove(glm::vec2 mouse_);
+	void NotifyOfMouseScroll(int y_);
+
+
 
 private:
 	MEngine();

@@ -34,6 +34,10 @@ bool MEngine::OnCreate(std::string name_, int width_, int height_)
 		OnDestroy();
 		return isRunning = false;
 	}
+	//after window is created, pass instance sdl window
+	SDL_WarpMouseInWindow(window->GetWindow(), window->GetWidth() / 2, window->GetHeight() / 2);
+
+	MouseEventListener::RegisterEngineObject(this);
 
 	ShaderHandler::GetInstance()->CreateProgram("colorShader",
 		"Engine/Shaders/ColorVertexShader.glsl",
@@ -68,6 +72,7 @@ void MEngine::Run()
 
 		//run 60 fps
 		timer->UpdateFrameTicks();
+		EventListener::Update();
 		Update(timer->GetDeltaTime());
 		Render();
 		//set sleep time to sleep
@@ -124,6 +129,28 @@ Camera* MEngine::GetCamera() const
 void MEngine::SetCamera(Camera* camera_)
 {
 	camera = camera_;
+}
+
+void MEngine::NotifyOfMousePressed(glm::vec2 mouse_, int buttonType_)
+{
+}
+
+void MEngine::NotifyOfMouseReleased(glm::vec2 mouse_, int buttonType_)
+{
+}
+
+void MEngine::NotifyOfMouseMove(glm::vec2 mouse_)
+{
+	if (camera) {
+		camera->ProcessMouseMovement(MouseEventListener::GetMouseOffset());
+	}
+}
+
+void MEngine::NotifyOfMouseScroll(int y_)
+{
+	if (camera) {
+		camera->ProcessMouseZoom(y_);
+	}
 }
 
 void MEngine::Update(const float deltaTime_)

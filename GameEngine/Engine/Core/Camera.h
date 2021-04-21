@@ -19,13 +19,16 @@ public:
 	glm::mat4 GetPerspective() const;
 	glm::mat4 GetOrthographic()const;
 	glm::vec3 GetPosition() const;
-
+	float GetNearPlane() const;
+	float GetFarPlane() const;
+	
 
 	//void Getlights(std::string name);
 	void Addlight(LightSource* lightsource_);
 	 std::vector<LightSource*> get_light() const;
 	
-	
+	 void ProcessMouseMovement(glm::vec2 offset_);
+	 void ProcessMouseZoom(int y_);
 	
 
 private:
