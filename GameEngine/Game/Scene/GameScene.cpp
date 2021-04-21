@@ -47,6 +47,11 @@ bool GameScene::OnCreate()
 	SceneGraph::GetInstance()->AddGameObject(new GameObject(appleModel, glm::vec3(1.3f, 0.0f, 0.0f)), "Apple");
 	//shape = new GameObject(model);
 	appleModel = nullptr;
+
+	Model* diceModel = new Model(ShaderHandler::GetInstance()->GetShader("basicShader"), "Resources/Models/Dice.obj", "Resources/Materials/Dice.mtl");
+	SceneGraph::GetInstance()->AddModel(diceModel);
+	SceneGraph::GetInstance()->AddGameObject(new GameObject(diceModel, glm::vec3(-2.0f, 0.0f, -2.0f)));
+	diceModel = nullptr;
 	return true;
 }
 

@@ -21,6 +21,7 @@ struct SubMesh {
 	std::vector<unsigned> meshIndices;
 	//GLuint textureID;
 	Material material;
+	
 };
 
 class Mesh
@@ -41,7 +42,8 @@ private:
 	SubMesh subMesh;
 	GLuint shaderProgram;
 	GLuint textureID;
-	GLuint modelLoc, viewLoc,  projectionLoc, textureLoc, lightPos, lightAmbient, lightDiffuse, lightColor, lightSpecular, cameraLoc;
+	GLuint modelLoc, viewLoc,  projectionLoc,  lightPos, lightAmbient, lightDiffuse, lightColor, lightSpecular, cameraLoc;
+	GLuint diffuseMap, shininess, transparency, ambient, diffuse, specular;
 };
 
 #endif // !MESH_H

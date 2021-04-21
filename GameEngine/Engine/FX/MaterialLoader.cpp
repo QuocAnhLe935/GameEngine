@@ -29,10 +29,61 @@ void MaterialLoader::LoadMaterial(std::string filePath_)
 			m.diffuseMap = LoadTexture(matName);
 			m.name = matName;
 		}
+		if (m.diffuseMap != 0) {
+			MaterialHandler::GetInstance()->AddMaterial(m);
+		}
+
+		if (line.substr(0, 3) == "Kd ") {
+			if (m.diffuse != glm::vec3(0.0f, 0.0f, .0f)) {
+				MaterialHandler::GetInstance()->AddMaterial(m);
+				m = Material();
+			}
+			matName = line.substr(3);
+			
+			m.name = matName;
+		}
+
+		if (line.substr(0, 3) == "Ks ") {
+			if (m.specular != glm::vec3(0.0f, 0.0f, .0f)) {
+				MaterialHandler::GetInstance()->AddMaterial(m);
+				m = Material();
+			}
+			matName = line.substr(3);
+			m.name = matName;
+		}
+
+		if (line.substr(0, 3) == "Ka ") {
+			if (m.ambient != glm::vec3(0.0f, 0.0f, .0f)) {
+				MaterialHandler::GetInstance()->AddMaterial(m);
+				m = Material();
+			}
+			matName = line.substr(3);
+			m.name = matName;
+		}
+
+		if (line.substr(0, 2) == "d ") {
+			if (m.transparency != 0) {
+				MaterialHandler::GetInstance()->AddMaterial(m);
+				m = Material();
+			}
+			matName = line.substr(3);
+			m.transparency = LoadTexture(matName);
+			m.name = matName;
+		}
+
+		if (line.substr(0, 2) == "Ns ") {
+			if (m.shininess != 0) {
+				MaterialHandler::GetInstance()->AddMaterial(m);
+				m = Material();
+			}
+			matName = line.substr(3);
+			m.shininess = LoadTexture(matName);
+			m.name = matName;
+		}
+
 	}
-	if (m.diffuseMap != 0) {
-		MaterialHandler::GetInstance()->AddMaterial(m);
-	}
+
+	
 	in.close();
 }
 

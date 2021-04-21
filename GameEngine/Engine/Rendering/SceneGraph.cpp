@@ -5,7 +5,7 @@ std::unordered_map<GLuint, std::vector<Model*>> SceneGraph::sceneModels =
 std::unordered_map<GLuint, std::vector<Model*>>();
 std::map<std::string, GameObject*> SceneGraph::sceneGameObjects = std::map<std::string, GameObject*>();
 
-
+SceneGraph::SceneGraph() {};
 
 
 SceneGraph* SceneGraph::GetInstance()

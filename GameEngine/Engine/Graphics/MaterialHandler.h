@@ -19,7 +19,7 @@ struct Material {
 	}
 		GLuint diffuseMap;
 
-	float shininess; //ns
+	float shininess; //Ns
 	float transparency; //d
 
 	glm::vec3 ambient;//ka

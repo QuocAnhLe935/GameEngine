@@ -120,25 +120,7 @@ void LoadOBJmodel::LoadModel(const std::string& filePath_)
 			normalIndex[1]--;
 			normalIndex[2]--;
 
-			//t >> a >> d >> at >> d >> an >> b >> d >> bt >> d >> bn >> c >> d >> ct >> d >> cn;
-			//a--; b--; c--;
-			//at--; bt--; ct--;
-			//an--; bn--; cn--;
-
-
-			//indices.push_back(a);
-			//indices.push_back(b);
-			//indices.push_back(c);
-
-			////push texture indices
-			//textureIndices.push_back(at);
-			//textureIndices.push_back(bt);
-			//textureIndices.push_back(ct);
-
-			////push normal indices
-			//normalIndices.push_back(an);
-			//normalIndices.push_back(bn);
-			//normalIndices.push_back(cn);
+	
 
 
 			indices.push_back(vertexIndex[0]);
@@ -190,29 +172,14 @@ void LoadOBJmodel::PostProcessing()
 }
 void LoadOBJmodel::LoadMaterial(const std::string& matName_)
 {
-	/*currentTexture = TextureHandler::GetInstance()->GetTexture(matName_);
-	if (currentTexture == 0) {
-		TextureHandler::GetInstance()->CreateTexture(matName_, "Resources/Textures/" + matName_ + ".png");
-		currentTexture = TextureHandler::GetInstance()->GetTexture(matName_);
-	}*/
+	
 
 	currentMaterial = MaterialHandler::GetInstance()->GetMaterial(matName_);
 
 }
 
 void LoadOBJmodel::LoadMaterialLibrary(const std::string& matFilePath_)
-{/*
-	std::ifstream in(matFilePath_.c_str(), std::ios::in);
-	if (!in) {
-
-		Debug::Error("Cannot open MTL file: " + matFilePath_, "loadOBJmodel.cpp", __LINE__);
-	}
-		std::string line;
-		while (std::getline(in, line)) {
-			if(line.substr(0, 7)=="newmtl "){
-			LoadMaterial(line.substr(7));
-			}
-		}*/
+{
 
 	MaterialLoader::LoadMaterial(matFilePath_);
 }

@@ -2,7 +2,7 @@
 
 Mesh::Mesh(SubMesh& subMesh_, GLuint shaderProgram_)
 //						set to equal empty vector
-	:VAO(0), VBO(0), vertexList(std::vector<Vertex>()),  shaderProgram(0), viewLoc(0), projectionLoc(0), textureLoc(0)
+	:VAO(0), VBO(0), vertexList(std::vector<Vertex>()),  shaderProgram(0), viewLoc(0), projectionLoc(0)
 {
 	//setting the classes vertxlist vect= verList_ get pass in as parameter
 	subMesh=subMesh_;
@@ -36,13 +36,11 @@ Mesh::~Mesh()
 void Mesh::Render(Camera* camera_, std::vector<glm::mat4>& instances_)
 {
 	//assign unf varible to texture unit num 0
-	glUniform1i(textureLoc, 0);
+	glUniform1i(subMesh.material.diffuseMap, 0);
 	//active texture num0
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, subMesh.material.diffuseMap);
 	
-	
-
 	//camera stuffs
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetView()));
 	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetPerspective()));
@@ -54,14 +52,22 @@ void Mesh::Render(Camera* camera_, std::vector<glm::mat4>& instances_)
 	glUniform1f(lightSpecular, camera_->get_light()[0]->getSpecular());
 	glUniform3f(lightPos, camera_->get_light()[0]->getPosition().x, camera_->get_light()[0]->getPosition().y, camera_->get_light()[0]->getPosition().z);
 	glUniform3f(lightColor, camera_->get_light()[0]->getLightColor().x, camera_->get_light()[0]->getLightColor().y, camera_->get_light()[0]->getLightColor().z);
-
-	//2nd light
+	
+	glUniform1f(shininess, subMesh.material.shininess);
+	glUniform1f(diffuseMap, subMesh.material.diffuseMap);
+	glUniform1f(transparency, subMesh.material.transparency);
+	glUniform3f(diffuse, subMesh.material.diffuse.x, subMesh.material.diffuse.y, subMesh.material.diffuse.z);
+	glUniform3f(ambient, subMesh.material.ambient.x, subMesh.material.ambient.y, subMesh.material.ambient.z);
+	glUniform3f(specular, subMesh.material.specular.x, subMesh.material.specular.y, subMesh.material.specular.z);
+	
+	
+	//2nd lights
 	/*glUniform1f(lightAmbient[1], camera_->get_light()[0]->getAmbient());
 	glUniform1f(lightDiffuse[1], camera_->get_light()[0]->getDiffuse());
 	glUniform1f(lightSpecular[1], camera_->get_light()[0]->getSpecular());
 	glUniform3f(lightPos[1], camera_->get_light()[0]->getPosition().x, camera_->get_light()[0]->getPosition().y, camera_->get_light()[0]->getPosition().z);
 	glUniform3f(lightColor[1], camera_->get_light()[0]->getLightColor().x, camera_->get_light()[0]->getLightColor().y, camera_->get_light()[0]->getLightColor().z);*/
-
+	
 
 
 	//bind VAO we want to use
@@ -142,7 +148,7 @@ void Mesh::GenerateBuffer()
 	modelLoc = glGetUniformLocation(shaderProgram, "model");
 	viewLoc = glGetUniformLocation(shaderProgram, "view");
 	projectionLoc = glGetUniformLocation(shaderProgram, "projection");
-	textureLoc = glGetUniformLocation(shaderProgram, "inputTexture");
+	//textureLoc = glGetUniformLocation(shaderProgram, "inputTexture");
 	
 	cameraLoc = glGetUniformLocation(shaderProgram, "camera");
 
@@ -151,6 +157,13 @@ void Mesh::GenerateBuffer()
 	lightColor = glGetUniformLocation(shaderProgram, "light.lightColor");
 	lightDiffuse = glGetUniformLocation(shaderProgram, "light.diffuse");
 	lightSpecular = glGetUniformLocation(shaderProgram, "light.specular");
+
+	diffuse = glGetUniformLocation(shaderProgram, "material.diffuse");
+	diffuseMap = glGetUniformLocation(shaderProgram, "material.diffuseMap");
+	shininess = glGetUniformLocation(shaderProgram, "material.shininess");
+	ambient = glGetUniformLocation(shaderProgram, "material.ambient");
+	transparency = glGetUniformLocation(shaderProgram, "material.transparency");
+	specular = glGetUniformLocation(shaderProgram, "material.specular");
 
 	//lightPos[1] = glGetUniformLocation(shaderProgram, "light.lightPos[1]");
 	//lightAmbient[1] = glGetUniformLocation(shaderProgram, "light.ambient[1]");
