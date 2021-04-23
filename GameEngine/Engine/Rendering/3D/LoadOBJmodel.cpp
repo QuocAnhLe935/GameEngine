@@ -20,6 +20,7 @@ LoadOBJmodel::LoadOBJmodel()
 	textureIndices.reserve(200);
 	meshVertices.reserve(200);
 	submeshs.reserve(10);
+
 }
 
 LoadOBJmodel::~LoadOBJmodel()
@@ -38,6 +39,7 @@ void LoadOBJmodel::LoadModel(const std::string& objFilePath_, const std::string&
 {
 	LoadMaterialLibrary(mtlFilePath_);
 	LoadModel(objFilePath_);
+	
 }
 
 std::vector<SubMesh> LoadOBJmodel::GetSubMeshes()
@@ -48,14 +50,18 @@ std::vector<SubMesh> LoadOBJmodel::GetSubMeshes()
 BoundingBox LoadOBJmodel::GetBoundingBox() const
 {
 	
-	return BoundingBox();
+	return boundingBox;
 }
 
 
 void LoadOBJmodel::LoadModel(const std::string& filePath_)
 {
 	std::ifstream in(filePath_.c_str(), std::ios::in);
-
+	float maxX, maxY, maxZ;
+	maxX = maxY = maxZ = -999.0f;
+	
+	float minX, minY, minZ;
+	minX = minY = minZ = 999.0f;
 	if (!in) {
 
 		Debug::Error("Cannot open OBJ file: " + filePath_, "LoadOBJmodel.cpp", __LINE__);
@@ -73,11 +79,28 @@ void LoadOBJmodel::LoadModel(const std::string& filePath_)
 			float x, y, z;
 			v >> x >> y >> z;
 			vertices.push_back(glm::vec3(x, y, z));
-			
-			boundingBox.minVert = glm::vec3(x, y, z);
-			boundingBox.maxVert = glm::vec3(x, y, z);
-			
+			if (x > maxX) {
+				maxX = x;
+			}
+			if (y > maxY) {
+				maxY = y;
+			}
+			if (z > maxZ) {
+				maxZ = z;
+			}
 
+			if (x < minX) {
+				minX = x;
+			}
+			if (y < minY) {
+				minY = y;
+			}
+			if (z < minZ) {
+				minZ = z;
+			}
+			boundingBox.minVert = glm::vec3(minX, minY, minZ);
+			boundingBox.maxVert = glm::vec3(maxX, maxY, maxZ);
+			//boundingBox.maxVert = boundingBox.minVert;
 		}
 
 		//new mesh
@@ -143,10 +166,11 @@ void LoadOBJmodel::LoadModel(const std::string& filePath_)
 			normalIndices.push_back(normalIndex[0]);
 			normalIndices.push_back(normalIndex[1]);
 			normalIndices.push_back(normalIndex[2]);
-
 		}
+		
 	}
 	PostProcessing();
+	
 
 }
 
@@ -157,6 +181,7 @@ void LoadOBJmodel::PostProcessing()
 		vert.position = vertices[indices[i]];
 		vert.normal = normals[normalIndices[i]];
 		vert.textureCoordinates = textureCoords[textureIndices[i]];
+		
 		meshVertices.push_back(vert);
 	}
 
@@ -173,12 +198,14 @@ void LoadOBJmodel::PostProcessing()
 	//currentTexture = 0;
 	currentMaterial = Material();
 
+	
 }
 void LoadOBJmodel::LoadMaterial(const std::string& matName_)
 {
 	
 
 	currentMaterial = MaterialHandler::GetInstance()->GetMaterial(matName_);
+
 
 }
 
