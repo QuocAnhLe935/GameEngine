@@ -137,6 +137,7 @@ void MEngine::NotifyOfMousePressed(glm::vec2 mouse_, int buttonType_)
 
 void MEngine::NotifyOfMouseReleased(glm::vec2 mouse_, int buttonType_)
 {
+	CollisionHandler::GetInstance()->MouseUpdate(mouse_, buttonType_);
 }
 
 void MEngine::NotifyOfMouseMove(glm::vec2 mouse_)
@@ -181,6 +182,7 @@ void MEngine::OnDestroy()
 	TextureHandler::GetInstance()->OnDestroy();
 	SceneGraph::GetInstance()->OnDestroy();
 	MaterialHandler::GetInstance()->OnDestroy();
+	CollisionHandler::GetInstance()->OnDestroy();
 
 	delete timer;
 	timer = nullptr;

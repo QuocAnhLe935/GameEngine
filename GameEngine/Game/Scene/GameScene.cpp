@@ -39,7 +39,7 @@ bool GameScene::OnCreate()
 	//light[1]->setSpecular(0.7f);
 	//light[1]->setLightColor(glm::vec3(2.0f, 1.0f, 2.0f));
 
-
+	CollisionHandler::GetInstance()->OnCreate();
 	MEngine::GetInstance()->GetCamera()->Addlight(light);
 	
 	Model* appleModel = new Model(ShaderHandler::GetInstance()->GetShader("basicShader"),"Resources/Models/Apple.obj", "Resources/Materials/Apple.mtl");

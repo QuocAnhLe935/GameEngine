@@ -66,6 +66,8 @@
     <ClCompile Include="Engine\Events\MouseEventListener.cpp" />
     <ClCompile Include="Engine\Events\EventListener.cpp" />
     <ClCompile Include="Engine\Events\KBoardEventListener.cpp" />
+    <ClCompile Include="Engine\Math\CollisionDetection.cpp" />
+    <ClCompile Include="Engine\Math\CollisionHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.h">
@@ -116,6 +118,9 @@
     <ClInclude Include="Engine\Events\EventListener.h" />
     <ClInclude Include="Engine\Math\BoundingBox.h" />
     <ClInclude Include="Engine\Events\KBoardEventListener.h" />
+    <ClInclude Include="Engine\Math\Ray.h" />
+    <ClInclude Include="Engine\Math\CollisionDetection.h" />
+    <ClInclude Include="Engine\Math\CollisionHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Shaders\ColorVertexShader.glsl" />
