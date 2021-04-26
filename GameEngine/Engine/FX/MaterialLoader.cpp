@@ -29,10 +29,8 @@ void MaterialLoader::LoadMaterial(std::string filePath_)
 			m.diffuseMap = LoadTexture(matName);
 			m.name = matName;
 		}
-		if (m.diffuseMap != 0) {
-			MaterialHandler::GetInstance()->AddMaterial(m);
-		}
-
+		
+		/**/
 		if (line.substr(0, 3) == "Kd ") {
 			if (m.diffuse != glm::vec3(0.0f, 0.0f, .0f)) {
 				MaterialHandler::GetInstance()->AddMaterial(m);
@@ -83,7 +81,9 @@ void MaterialLoader::LoadMaterial(std::string filePath_)
 
 	}
 
-	
+	if (m.diffuseMap != 0) {
+		MaterialHandler::GetInstance()->AddMaterial(m);
+	}
 	in.close();
 }
 

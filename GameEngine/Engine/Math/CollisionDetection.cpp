@@ -44,7 +44,7 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_)
 	float tMin = MEngine::GetInstance()->GetCamera()->GetNearPlane();
 	float tMax = MEngine::GetInstance()->GetCamera()->GetFarPlane();
 
-
+	//object world pos last column of model matrix of the box
 	glm::vec3 worldPos(modelMatrix[3].x, modelMatrix[3].y, modelMatrix[3].z);
 	glm::vec3 delta = worldPos - rayOrigin;
 
@@ -52,6 +52,15 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_)
 	glm::vec3 xAxis(modelMatrix[0].x, modelMatrix[0].y, modelMatrix[0].z);
 	float dotDelta = glm::dot(delta, xAxis);
 	float dotDir = glm::dot(rayDirection, xAxis);
+
+
+	glm::vec3 yAxis(modelMatrix[1].x, modelMatrix[1].y, modelMatrix[1].z);
+	float dotDelta1 = glm::dot(delta, yAxis);
+	float dotDir1 = glm::dot(rayDirection, yAxis);
+
+	glm::vec3 zAxis(modelMatrix[2].x, modelMatrix[2].y, modelMatrix[2].z);
+	float dotDelta2 = glm::dot(delta, zAxis);
+	float dotDir2 = glm::dot(rayDirection, zAxis);
 
 	//ensure not divide by 9 fab(absolute of a float)
 	if (fabs(dotDir) > 0.001f) {
@@ -79,17 +88,19 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_)
 			return false;
 		}
 
+		
 
 	}
 	else {
 		if (-dotDelta + boxMin.x > 0.0f || -dotDelta + boxMax.x < 0.0f) {
 			return false;
 		}
+
 	}
-	//if (fabs(dotDir) > 0.001f) {}
-	{
-		float t3 = (dotDelta + boxMin.y) / dotDir;
-		float t4 = (dotDelta + boxMax.y) / dotDir;
+
+	/*{
+		float t3 = (dotDelta1 + boxMin.y) / dotDir1;
+		float t4 = (dotDelta1 + boxMax.y) / dotDir1;
 
 		if (t3 > t4) {
 			float w = t3;
@@ -106,8 +117,8 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_)
 		}
 
 
-		float t5 = (dotDelta + boxMin.z) / dotDir;
-		float t6 = (dotDelta + boxMax.z) / dotDir;
+		float t5 = (dotDelta2 + boxMin.z) / dotDir2;
+		float t6 = (dotDelta2 + boxMax.z) / dotDir2;
 
 		if (t5 > t6) {
 			float w = t5;
@@ -121,8 +132,64 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_)
 		if (t5 > tMin) {
 			tMin = t5;
 		}
+	}*/
+	if (fabs(dotDir1) > 0.001f) {
+		float t3 = (dotDelta1 + boxMin.y) / dotDir1;
+		float t4 = (dotDelta1 + boxMax.y) / dotDir1;
+
+		if (t3 > t4) {
+			float w = t3;
+			t3 = t4;
+			t4 = w;
+		}
+
+		if (t4 < tMax) {
+			tMax = t4;
+		}
+
+		if (t3 > tMin) {
+			tMin = t3;
+		}
 	}
-	
+	else {
+
+		if (-dotDelta1 + boxMin.y > 0.0f || -dotDelta1 + boxMax.y < 0.0f) {
+			return false;
+		}
+	}
+
+
+
+	if (fabs(dotDir2) > 0.001f) {
+
+
+		float t5 = (dotDelta2 + boxMin.z) / dotDir2;
+		float t6 = (dotDelta2 + boxMax.z) / dotDir2;
+
+		if (t5 > t6) {
+			float w = t5;
+			t5 = t6;
+			t6 = w;
+		}
+
+		if (t6 < tMax) {
+			tMax = t6;
+		}
+		if (t5 > tMin) {
+			tMin = t5;
+		}
+
+
+	}
+	else {
+
+		if (-dotDelta2 + boxMin.z > 0.0f || -dotDelta2 + boxMax.z < 0.0f) {
+			return false;
+		}
+	}
+
+
+
 	ray_->intersectionDist = tMin;
 	return true;
 }

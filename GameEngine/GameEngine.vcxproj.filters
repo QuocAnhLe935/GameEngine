@@ -68,6 +68,7 @@
     <ClCompile Include="Engine\Events\KBoardEventListener.cpp" />
     <ClCompile Include="Engine\Math\CollisionDetection.cpp" />
     <ClCompile Include="Engine\Math\CollisionHandler.cpp" />
+    <ClCompile Include="Engine\Core\OctSpatialPartion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Window.h">
@@ -121,6 +122,7 @@
     <ClInclude Include="Engine\Math\Ray.h" />
     <ClInclude Include="Engine\Math\CollisionDetection.h" />
     <ClInclude Include="Engine\Math\CollisionHandler.h" />
+    <ClInclude Include="Engine\Core\OctSpatialPartion.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Shaders\ColorVertexShader.glsl" />

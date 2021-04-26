@@ -86,7 +86,7 @@ std::vector<LightSource*> Camera::get_light() const
 
 void Camera::ProcessMouseMovement(glm::vec2 offset_)
 {
-    offset_ *= 0.05;
+    offset_ *= 0.025f;
 
     yaw += offset_.x;
     pitch += offset_.y;

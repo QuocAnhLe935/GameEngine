@@ -14,7 +14,7 @@ struct Material {
 		transparency = 1.0f;
 		ambient = glm::vec3(1.0f);
 		diffuse = glm::vec3(1.0f);
-		specular = glm::vec3();
+		specular = glm::vec3(1.0f);
 		name = "";
 	}
 		GLuint diffuseMap;

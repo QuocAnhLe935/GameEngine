@@ -48,7 +48,7 @@ void SceneGraph::AddModel(Model* model_)
 		//create entry											//key, value
 		sceneModels.insert(std::pair<GLuint, std::vector<Model*>>(shader, std::vector<Model*>()));
 		sceneModels[shader].reserve(10);
-		//
+		
 	}
 	//
 	sceneModels[shader].push_back(model_);
@@ -63,6 +63,8 @@ void SceneGraph::AddGameObject(GameObject* go_, std::string tag_)
 	}
 	else if (sceneGameObjects.find(tag_) == sceneGameObjects.end()) {
 		go_->SetTag(tag_);
+		//go=gameobject
+		//go to scene gaobject go to key(tag_) make this key have a value of go *
 		sceneGameObjects[tag_] = go_;
 	}
 	else {
@@ -93,6 +95,7 @@ void SceneGraph::Update(const float deltaTime_)
 void SceneGraph::Render(Camera* camera_)
 {
 	for (auto entry : sceneModels) {
+		//
 		glUseProgram(entry.first);
 		for (auto m : entry.second) {
 			m->Render(camera_);

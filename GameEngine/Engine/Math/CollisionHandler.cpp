@@ -33,12 +33,14 @@ void CollisionHandler::MouseUpdate(glm::vec2 mousePos_, int buttonType_)
         MEngine::GetInstance()->GetScreenHeight(), MEngine::GetInstance()->GetCamera());
         
     GameObject* hitResult = nullptr;
-    float shortestDistance = 1000000.0f;
+    float shortestDistance = FLT_MAX;
 
     //loop all colliable objects
     for (auto g : colliders) {
         //if ray collide with boudning box
-        if (mouseRay.IsColliding(&g->GetBoundingBox())) {
+        BoundingBox b;
+        b = g->GetBoundingBox();
+        if (mouseRay.IsColliding(&b)) {
             //
             if (mouseRay.intersectionDist < shortestDistance) {
                 hitResult = g;
@@ -65,6 +67,7 @@ void CollisionHandler::MouseUpdate(glm::vec2 mousePos_, int buttonType_)
 
 void CollisionHandler::OnDestroy()
 {
+   
     for (auto entry : colliders) {
         entry = nullptr;
     }
