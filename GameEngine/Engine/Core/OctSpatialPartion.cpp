@@ -178,7 +178,7 @@ GameObject* OctSpatialPartion::GetCollision(Ray ray_)
 	GameObject* result = nullptr;
 	float shortestDistance = FLT_MAX;
 
-	for (auto cell : rayIntersectionList) {
+	/*for (auto cell : rayIntersectionList) {
 		for (auto obj : cell->objectList) {
 			if (ray_.IsColliding(&obj->GetBoundingBox())) {
 				if (ray_.intersectionDist < shortestDistance) {
@@ -190,7 +190,7 @@ GameObject* OctSpatialPartion::GetCollision(Ray ray_)
 		if(result!=nullptr){
 			return result;
 		}
-	}
+	}*/
 	return nullptr;
 }
 
