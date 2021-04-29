@@ -80,7 +80,7 @@ glm::vec2 MouseEventListener::GetMousePosition()
 
 glm::vec2 MouseEventListener::GetMouseOffset()
 {
-	return glm::vec2(mouse.x-prevMouse.x, prevMouse.y- mouse.x);
+	return glm::vec2(mouse.x-prevMouse.x, prevMouse.y- mouse.y);
 	//0 at tthe bottom since sdl has 0 on top?
 }
 

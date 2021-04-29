@@ -2,8 +2,9 @@
 #include "../Core/MEngine.h"
 
 std::unique_ptr<CollisionHandler> CollisionHandler::collisionInstance = nullptr;
-std::vector<GameObject*> CollisionHandler::colliders = std::vector<GameObject*>();
+//std::vector<GameObject*> CollisionHandler::colliders = std::vector<GameObject*>();
 std::vector<GameObject*> CollisionHandler::prevCollisions = std::vector<GameObject*>();
+OctSpatialPartion* CollisionHandler::scenePartition = nullptr;
 
 
 CollisionHandler* CollisionHandler::GetInstance()
@@ -16,15 +17,17 @@ CollisionHandler* CollisionHandler::GetInstance()
     return collisionInstance.get();
 }
 
-void CollisionHandler::OnCreate()
+void CollisionHandler::OnCreate(float worldsize_)
 {
-    colliders.clear();
+    scenePartition = new OctSpatialPartion(worldsize_);
     prevCollisions.clear();
 }
 //add colliable object to colliable gameobject on s
 void CollisionHandler::AddObject(GameObject* go_)
 {
-    colliders.push_back(go_);
+    if (scenePartition != nullptr) {
+        scenePartition->AddObject(go_);
+    }
 }
 
 void CollisionHandler::MouseUpdate(glm::vec2 mousePos_, int buttonType_)
@@ -36,42 +39,35 @@ void CollisionHandler::MouseUpdate(glm::vec2 mousePos_, int buttonType_)
     float shortestDistance = FLT_MAX;
 
     //loop all colliable objects
-    for (auto g : colliders) {
-        //if ray collide with boudning box
-        BoundingBox b;
-        b = g->GetBoundingBox();
-        if (mouseRay.IsColliding(&b)) {
-            //
-            if (mouseRay.intersectionDist < shortestDistance) {
-                hitResult = g;
-                shortestDistance = mouseRay.intersectionDist;
-            }
-        }
-    }
-    if (hitResult) {
-        hitResult->SetHit(true, buttonType_);
-    }
-    //prev hit that not hit anymore
-    for (auto c : prevCollisions) {
-        if (hitResult != c && c != nullptr) {
-            c->SetHit(false, buttonType_);
-        }
-    }
+    if (scenePartition != nullptr) {
+        GameObject* hitResult = scenePartition->GetCollision(mouseRay);
 
-    prevCollisions.clear();
-    //prev nto hit again
-    if (hitResult) {
-        prevCollisions.push_back(hitResult);
+        if (hitResult) {
+            hitResult->SetHit(true, buttonType_);
+        }
+
+        //prev hit that not hit anymore
+        for (auto c : prevCollisions) {
+            if (hitResult != c && c != nullptr) {
+                c->SetHit(false, buttonType_);
+            }
+            c = nullptr;
+        }
+
+        prevCollisions.clear();
+
+        //prev nto hit again
+        if (hitResult) {
+            prevCollisions.push_back(hitResult);
+        }
     }
 }
 
 void CollisionHandler::OnDestroy()
 {
    
-    for (auto entry : colliders) {
-        entry = nullptr;
-    }
-    colliders.clear();
+    delete scenePartition;
+    scenePartition = nullptr;
 
     for (auto entry : prevCollisions) {
         entry = nullptr;
@@ -80,7 +76,7 @@ void CollisionHandler::OnDestroy()
 }
 
 CollisionHandler::CollisionHandler(){
-    colliders.reserve(10);
+   
     prevCollisions.reserve(10);
 }
 

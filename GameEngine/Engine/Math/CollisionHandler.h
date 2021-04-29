@@ -4,6 +4,7 @@
 #include"Ray.h"
 
 #include"../Rendering/3D/GameObject.h"
+#include"../Core/\OctSpatialPartion.h"
 
 class CollisionHandler
 {
@@ -16,7 +17,7 @@ public:
 	//static return a pointer of class type
 	static CollisionHandler* GetInstance();
 
-	void OnCreate();
+	void OnCreate(float worldsize_);
 	void AddObject(GameObject* go_);
 	void MouseUpdate(glm::vec2 mousePos_, int buttonType_);
 	void OnDestroy();
@@ -27,8 +28,9 @@ private:
 	static std::unique_ptr<CollisionHandler> collisionInstance;
 	friend std::default_delete<CollisionHandler>;
 
-	static std::vector<GameObject*> colliders;
+	//static std::vector<GameObject*> colliders;
 	static std::vector<GameObject*> prevCollisions;
+	static OctSpatialPartion* scenePartition;
 
 };
 #endif // 

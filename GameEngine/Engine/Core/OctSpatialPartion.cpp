@@ -51,36 +51,36 @@ void OctNode::Octify(int depth_)
 		//this specific octnode is creating its children
 
 		{
-			children[static_cast<int>(OctChildren::OCT_BLF)] = new OctNode(
-			glm::vec3(octBounds->minVert.x, octBounds->minVert.y + half,
+		children[static_cast<int>(OctChildren::OCT_BLF)] = new OctNode(
+			glm::vec3(octBounds->minVert.x, octBounds->minVert.y,
 				octBounds->minVert.z + half), half, this);
 
 		children[static_cast<int>(OctChildren::OCT_BRF)] = new OctNode(
-			glm::vec3(octBounds->minVert.x, octBounds->minVert.y + half,
+			glm::vec3(octBounds->minVert.x + half, octBounds->minVert.y ,
 				octBounds->minVert.z + half), half, this);
 
 		children[static_cast<int>(OctChildren::OCT_TRF)] = new OctNode(
-			glm::vec3(octBounds->minVert.x, octBounds->minVert.y + half,
+			glm::vec3(octBounds->minVert.x + half, octBounds->minVert.y + half,
 				octBounds->minVert.z + half), half, this);
 
 		children[static_cast<int>(OctChildren::OCT_TLR)] = new OctNode(
 			glm::vec3(octBounds->minVert.x, octBounds->minVert.y + half,
-				octBounds->minVert.z + half), half, this);
+				octBounds->minVert.z), half, this);
 
 		children[static_cast<int>(OctChildren::OCT_BLR)] = new OctNode(
-			glm::vec3(octBounds->minVert.x, octBounds->minVert.y + half,
-				octBounds->minVert.z + half), half, this);
+			glm::vec3(octBounds->minVert.x, octBounds->minVert.y ,
+				octBounds->minVert.z ), half, this);
 
 		children[static_cast<int>(OctChildren::OCT_BRR)] = new OctNode(
-			glm::vec3(octBounds->minVert.x, octBounds->minVert.y + half,
-				octBounds->minVert.z + half), half, this);
+			glm::vec3(octBounds->minVert.x + half, octBounds->minVert.y ,
+				octBounds->minVert.z ), half, this);
 
 		children[static_cast<int>(OctChildren::OCT_TRR)] = new OctNode(
-			glm::vec3(octBounds->minVert.x, octBounds->minVert.y + half,
-				octBounds->minVert.z + half), half, this);
+			glm::vec3(octBounds->minVert.x + half, octBounds->minVert.y + half,
+				octBounds->minVert.z ), half, this);
 	}
 
-		childNum *= 8;
+		childNum += 8;
 	}
 
 
@@ -159,7 +159,6 @@ OctSpatialPartion::~OctSpatialPartion()
 //call private function
 void OctSpatialPartion::AddObject(GameObject* obj_)
 {
-	
 	AddObjectToCell(root, obj_);
 }
 
@@ -178,9 +177,12 @@ GameObject* OctSpatialPartion::GetCollision(Ray ray_)
 	GameObject* result = nullptr;
 	float shortestDistance = FLT_MAX;
 
-	/*for (auto cell : rayIntersectionList) {
+	for (auto cell : rayIntersectionList) {
 		for (auto obj : cell->objectList) {
-			if (ray_.IsColliding(&obj->GetBoundingBox())) {
+			//if ray collided with bounding box
+			BoundingBox b;
+			b = obj->GetBoundingBox();
+			if (ray_.IsColliding(&b)) {
 				if (ray_.intersectionDist < shortestDistance) {
 					result = obj;
 					shortestDistance = ray_.intersectionDist;
@@ -190,14 +192,55 @@ GameObject* OctSpatialPartion::GetCollision(Ray ray_)
 		if(result!=nullptr){
 			return result;
 		}
-	}*/
+	}
 	return nullptr;
 }
 
 void OctSpatialPartion::AddObjectToCell(OctNode* cell_, GameObject* obj_)
 {
+	//leaf
+	if (cell_ != nullptr) {
+		BoundingBox* b = cell_->GetBoundingBox();
+		BoundingBox c = obj_->GetBoundingBox();
+		if(b->Intersects(&c)){
+		
+			if (cell_->IsLeaf() == true) {
+				//if game obj bounding box collide with that node bounding box
+				cell_->AddCollisionObject(obj_);
+			}
+			//leaf not node
+			else {
+				for (size_t i = 0; i < CHILDERN_NUMBER; i++)
+				{
+					AddObjectToCell(cell_->children[i], obj_);
+				}
+			}
+		
+		}
+		
+	}
+	
+	
 }
 
 void OctSpatialPartion::PrepareCollisionQuery(OctNode* cell_, Ray ray_)
 {
+	////leaf
+	if (cell_!=nullptr) {
+		if (ray_.IsColliding(cell_->GetBoundingBox())) {
+			//node get added to rayintersectionlist vector;
+			if (cell_->IsLeaf() == true) {
+			
+				rayIntersectionList.push_back(cell_);
+			
+			}
+			else {
+				for (size_t i = 0; i < CHILDERN_NUMBER; i++) {
+					PrepareCollisionQuery(cell_->children[i], ray_);
+				}
+			}
+		}
+	}
+
+	//[static_cast<int>(
 }
